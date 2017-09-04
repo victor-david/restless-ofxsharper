@@ -108,7 +108,7 @@
     <Compile Include="Other\NodeInfoAttribute.cs" />
     <Compile Include="Core\Anonymous.cs" />
     <Compile Include="OfxResponse\OfxResponseBase.cs" />
-    <Compile Include="OfxResponse\OfxResponseFactory.cs" />
+    <Compile Include="Core\OfxFactory.cs" />
     <Compile Include="Core\OfxHeader.cs" />
     <Compile Include="Core\StatusAggregate.cs" />
     <Compile Include="OfxProfileResponse\InstitutionProfile.cs" />

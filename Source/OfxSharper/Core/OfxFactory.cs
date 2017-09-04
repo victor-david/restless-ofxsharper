@@ -10,9 +10,10 @@ using System.Xml;
 namespace Restless.OfxSharper
 {
     /// <summary>
-    /// Provides methods to instansiate <see cref="OfxResponse"/> and <see cref="OfxProfileResponse"/> objects
+    /// Provides methods to instansiate <see cref="OfxResponse"/>, <see cref="OfxProfileResponse"/> 
+    /// and <see cref="OfxRequestBuilder"/> objects.
     /// </summary>
-    public static class OfxResponseFactory
+    public static class OfxFactory
     {
         #region Public methods (OfxResponse)
         /// <summary>
@@ -73,6 +74,19 @@ namespace Restless.OfxSharper
             {
                 return CreateProfileResponse(reader.ReadToEnd());
             }
+        }
+        #endregion
+
+        /************************************************************************/
+
+        #region Public methods (OfxRequestBuilder)
+        /// <summary>
+        /// Creates an <see cref="OfxRequestBuilder"/> object.
+        /// </summary>
+        /// <returns>An OfxRequestBuilder object.</returns>
+        public static OfxRequestBuilder CreateBuilder()
+        {
+            return new OfxRequestBuilder();
         }
         #endregion
 

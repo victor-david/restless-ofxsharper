@@ -32,11 +32,11 @@ namespace Restless.OfxSharper
 
         /************************************************************************/
 
-        #region Constructor
+        #region Constructor (internal)
         /// <summary>
         /// Initializes a new instance of the <see cref="OfxRequestBuilder"/> class.
         /// </summary>
-        public OfxRequestBuilder()
+        internal OfxRequestBuilder()
         {
             builder = new StringBuilder(1024);
         }
