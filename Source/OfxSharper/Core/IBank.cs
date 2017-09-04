@@ -27,7 +27,7 @@ namespace Restless.OfxSharper
         string Org { get; set; }
 
         /// <summary>
-        /// Gets or sets the Ofx id. FIO
+        /// Gets or sets the Ofx id. FID
         /// </summary>
         string OfxId { get; set; }
 
