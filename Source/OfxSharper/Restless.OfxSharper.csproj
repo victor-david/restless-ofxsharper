@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{79A39177-6CD1-4EBF-A6F6-523E34C67ECF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Restless.OfxSharper</RootNamespace>
+    <AssemblyName>Restless.OfxSharper</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x86\Release\Restless.OfxSharper.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SgmlReaderDll, Version=1.8.14.0, Culture=neutral, PublicKeyToken=46b2db9ca481831b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xml.SgmlReader.1.8.14\lib\net45\SgmlReaderDll.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts\CreditCardAccount.cs" />
+    <Compile Include="Accounts\BankAccount.cs" />
+    <Compile Include="Core\IAccount.cs" />
+    <Compile Include="Builder\OfxRequestBuilder.cs" />
+    <Compile Include="Core\IBank.cs" />
+    <Compile Include="Enumerations\StatementType.cs" />
+    <Compile Include="Enumerations\AccountType.cs" />
+    <Compile Include="Accounts\AccountBase.cs" />
+    <Compile Include="Core\Balance.cs" />
+    <Compile Include="Enumerations\BankAccountType.cs" />
+    <Compile Include="Core\TransactionMessageBase.cs" />
+    <Compile Include="OfxResponse\InstitutionIdentification.cs" />
+    <Compile Include="OfxResponse\Payee.cs" />
+    <Compile Include="Statements\BankClosingStatementPeriod.cs" />
+    <Compile Include="Statements\CommonStatementBase.cs" />
+    <Compile Include="Statements\ClosingStatementPeriodCollection.cs" />
+    <Compile Include="Statements\CreditCardClosingStatementPeriod.cs" />
+    <Compile Include="Statements\CreditCardClosingStatement.cs" />
+    <Compile Include="Statements\CreditCardStatement.cs" />
+    <Compile Include="Statements\BankStatement.cs" />
+    <Compile Include="Statements\StatementBase.cs" />
+    <Compile Include="Statements\BankClosingStatement.cs" />
+    <Compile Include="Statements\ClosingStatementPeriod.cs" />
+    <Compile Include="Statements\StatementCollection.cs" />
+    <Compile Include="Transactions\Transaction.cs" />
+    <Compile Include="Other\NodeInfoAttribute.cs" />
+    <Compile Include="Core\Anonymous.cs" />
+    <Compile Include="OfxResponse\OfxResponseBase.cs" />
+    <Compile Include="OfxResponse\OfxResponseFactory.cs" />
+    <Compile Include="Core\OfxHeader.cs" />
+    <Compile Include="Core\StatusAggregate.cs" />
+    <Compile Include="OfxProfileResponse\InstitutionProfile.cs" />
+    <Compile Include="OfxProfileResponse\BillPayProfile.cs" />
+    <Compile Include="OfxProfileResponse\ProfileBase.cs" />
+    <Compile Include="OfxProfileResponse\SignonInfoProfile.cs" />
+    <Compile Include="OfxProfileResponse\EmailProfile.cs" />
+    <Compile Include="OfxProfileResponse\OfxProfileResponse.cs" />
+    <Compile Include="Transactions\TransactionCollection.cs" />
+    <Compile Include="Core\OfxObjectBase.cs" />
+    <Compile Include="OfxResponse\OfxResponse.cs" />
+    <Compile Include="Other\OfxException.cs" />
+    <Compile Include="Other\OfxHelperMethods.cs" />
+    <Compile Include="Other\OfxParseException.cs" />
+    <Compile Include="Enumerations\OfxTransactionType.cs" />
+    <Compile Include="OfxResponse\SignOnResponse.cs" />
+    <Compile Include="Enumerations\TransactionCorrectionAction.cs" />
+    <Compile Include="OfxProfileResponse\ProfileData.cs" />
+    <Compile Include="OfxProfileResponse\TransferProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
