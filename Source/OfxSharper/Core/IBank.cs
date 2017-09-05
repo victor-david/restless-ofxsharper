@@ -34,5 +34,10 @@
         /// Gets or sets the application version.
         /// </summary>
         string AppVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Ofx language.
+        /// </summary>
+        string OfxLanguage { get; set; }
     }
 }

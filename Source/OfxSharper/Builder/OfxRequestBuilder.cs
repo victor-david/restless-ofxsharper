@@ -82,7 +82,7 @@ namespace Restless.OfxSharper
             builder.AppendLine(String.Format("<USERID>{0}", bank.UserId));
             builder.AppendLine(String.Format("<USERPASS>{0}", bank.Password));
             builder.AppendLine("<GENUSERKEY>N");
-            builder.AppendLine("<LANGUAGE>ENG");
+            builder.AppendLine(String.Format("<LANGUAGE>{0}", bank.OfxLanguage));
             builder.AppendLine("<FI>");
             builder.AppendLine(String.Format("<ORG>{0}", bank.Org));
             builder.AppendLine(String.Format("<FID>{0}", bank.OfxId));
