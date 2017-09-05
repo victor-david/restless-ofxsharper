@@ -272,7 +272,6 @@ namespace Restless.OfxSharper
                 int i2 = val.IndexOf(":");
                 if (i1 != -1 && i2 != -1 && i2 > i1)
                 {
-                    string xxx = val.Substring(i1 + 1, i2 - i1);
                     if (Int32.TryParse(val.Substring(i1+1, i2-i1-1), out int offset))
                     {
                         result = new DateTimeOffset(result.DateTime, new TimeSpan(offset, 0, 0));

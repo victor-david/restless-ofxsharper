@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper
 {
     /// <summary>
     /// Provides static declarations for the Ofx anonymous userid and password.

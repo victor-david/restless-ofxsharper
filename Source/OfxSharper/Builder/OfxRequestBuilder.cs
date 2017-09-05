@@ -21,13 +21,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the request text that was generated.
         /// </summary>
-        public string RequestText
-        {
-            get
-            {
-                return builder.ToString();
-            }
-        }
+        public string RequestText => builder.ToString();
         #endregion
 
         /************************************************************************/

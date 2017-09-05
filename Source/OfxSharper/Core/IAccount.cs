@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper
 {
     /// <summary>
     /// Defines an interface account to use with <see cref="OfxRequestBuilder"/>.
