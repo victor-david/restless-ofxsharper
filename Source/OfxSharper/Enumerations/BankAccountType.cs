@@ -33,10 +33,6 @@ namespace Restless.OfxSharper
         /// </summary>
         CreditLine,
         /// <summary>
-        /// A home loan.
-        /// </summary>
-        HomeLoan,
-        /// <summary>
         /// The bank account type is invalid or unknown.
         /// </summary>
         InvalidOrUnknown,
