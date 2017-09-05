@@ -17,7 +17,7 @@ namespace Restless.OfxSharper
         /// Gets the basic profile information for bank operations.
         /// </summary>
         [NodeInfo("BANKMSGSETV1")]
-        public AccountProfile Bank
+        public BankAccountProfile Bank
         {
             get;
             private set;
@@ -84,16 +84,6 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// Gets the profile information regarding inta bank transfers.
-        /// </summary>
-        [NodeInfo("XFERPROF")]
-        public TransferProfile Transfer
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// Gets the signon info portion of the profile.
         /// </summary>
         [NodeInfo("SIGNONINFO")]
@@ -124,14 +114,13 @@ namespace Restless.OfxSharper
         /// <param name="xmlDoc">The Xml document</param>
         public OfxProfileResponse(OfxHeader header, XmlDocument xmlDoc) : base(header, xmlDoc)
         {
-            Bank = new AccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Bank))));
+            Bank = new BankAccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Bank))));
             BillPay = new BillPayProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(BillPay))));
             CreditCard = new AccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(CreditCard))));
             Email = new EmailProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Email))));
             Profile = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Profile))));
             SignOn = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignOn))));
             SignUp = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignUp))));
-            Transfer = new TransferProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Transfer))));
             SignonInfo = new SignonInfoProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignonInfo))));
             Institution = new InstitutionProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Institution))));
         }

@@ -10,7 +10,7 @@ namespace Restless.OfxSharper
     /// <summary>
     /// Represents intra bank transfer information for a financial institution.
     /// </summary>
-    public class TransferProfile : OfxObjectBase
+    public class IntraBankTransferProfile : OfxObjectBase
     {
         #region Public properties
         /// <summary>
@@ -97,7 +97,7 @@ namespace Restless.OfxSharper
         /// Gets a list of days on which processing doe not occur.
         /// </summary>
         [NodeInfo("PROCDAYSOFF")]
-        public List<string> ProcessingDaysOff
+        public StringList ProcessingDaysOff
         {
             get;
             private set;
@@ -118,12 +118,12 @@ namespace Restless.OfxSharper
 
         #region Constructor (internal)
         /// <summary>
-        /// Initializes a new instance of the <see cref="TransferProfile"/> class.
+        /// Initializes a new instance of the <see cref="IntraBankTransferProfile"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        internal TransferProfile(XmlNode rootNode)
+        internal IntraBankTransferProfile(XmlNode rootNode)
         {
-            ProcessingDaysOff = new List<string>();
+            ProcessingDaysOff = new StringList();
             if (rootNode != null)
             {
                 IsSupported = true;

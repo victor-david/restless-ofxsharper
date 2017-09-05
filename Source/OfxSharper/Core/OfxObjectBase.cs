@@ -329,12 +329,12 @@ namespace Restless.OfxSharper
 
 
         /// <summary>
-        /// Populates the specified list
+        /// Populates the specified string list
         /// </summary>
         /// <param name="list">The list</param>
         /// <param name="propertyName">The property name. Used to find the node name that's specified in the property attribute.</param>
         /// <param name="rootNode">The root node to start with.</param>
-        protected void PopulateList(List<string> list, string propertyName, XmlNode rootNode)
+        protected void PopulateList(StringList list, string propertyName, XmlNode rootNode)
         {
             string nodeName = GetNodeName(propertyName);
             XmlNode node = GetNestedNode(rootNode, nodeName);

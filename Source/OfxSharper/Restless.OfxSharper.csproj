@@ -85,12 +85,14 @@
     <Compile Include="Core\IAccount.cs" />
     <Compile Include="Builder\OfxRequestBuilder.cs" />
     <Compile Include="Core\IBank.cs" />
+    <Compile Include="Core\StringList.cs" />
     <Compile Include="Enumerations\StatementType.cs" />
     <Compile Include="Enumerations\AccountType.cs" />
     <Compile Include="Accounts\AccountBase.cs" />
     <Compile Include="Core\Balance.cs" />
     <Compile Include="Enumerations\BankAccountType.cs" />
     <Compile Include="Core\TransactionMessageBase.cs" />
+    <Compile Include="OfxProfileResponse\BankAccountProfile.cs" />
     <Compile Include="OfxProfileResponse\AccountProfile.cs" />
     <Compile Include="OfxResponse\InstitutionIdentification.cs" />
     <Compile Include="OfxResponse\Payee.cs" />
@@ -128,7 +130,7 @@
     <Compile Include="OfxResponse\SignOnResponse.cs" />
     <Compile Include="Enumerations\TransactionCorrectionAction.cs" />
     <Compile Include="OfxProfileResponse\ProfileData.cs" />
-    <Compile Include="OfxProfileResponse\TransferProfile.cs" />
+    <Compile Include="OfxProfileResponse\IntraBankTransferProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

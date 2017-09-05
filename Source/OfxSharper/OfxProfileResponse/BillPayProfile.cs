@@ -158,7 +158,7 @@ namespace Restless.OfxSharper
         /// PROCDAYSOFF indicate days to exclude when calculating dates that utilize other bill payment bits, such as DAYSWITH and DFLTDAYSTOPAY values.
         /// </summary>
         [NodeInfo("PROCDAYSOFF")]
-        public List<string> ProcessingDaysOff
+        public StringList ProcessingDaysOff
         {
             get;
             private set;
@@ -207,7 +207,7 @@ namespace Restless.OfxSharper
         /// <param name="rootNode">The root node from which to find data for this class.</param>
         internal BillPayProfile(XmlNode rootNode) : base(rootNode)
         {
-            ProcessingDaysOff = new List<string>();
+            ProcessingDaysOff = new StringList();
             if (rootNode != null)
             {
                 CanAddPayee = GetBooleanValue(GetNestedNode(rootNode, GetNodeName(nameof(CanAddPayee))));
