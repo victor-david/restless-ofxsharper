@@ -242,6 +242,46 @@ namespace Restless.OfxSharper
             throw new OfxParseException("Do not use this method when property marked as required");
         }
 
+
+        /// <summary>
+        /// Gets s DateTimeOffset from the specified node.
+        /// </summary>
+        /// <param name="node">The node</param>
+        /// <returns>A DateTimeOffset</returns>
+        /// <remarks>
+        /// Time values arrive in the form of 235959[-5:EST]. 
+        /// This method extracts the time portion and the offset portion and
+        /// assigns them to the return result. The date portion of the return result
+        /// has no significance.
+        /// </remarks>
+        protected DateTimeOffset GetDateTimeOffset(XmlNode node)
+        {
+            DateTimeOffset result = new DateTimeOffset();
+            string val = GetNodeValue(node);
+            if (val.Length >= 6)
+            {
+                // 235959[-5:EST]
+                // 165959[-5:EST]
+                if (Int32.TryParse(val.Substring(0, 2), out int h) &&
+                    Int32.TryParse(val.Substring(2, 2), out int m) &&
+                    Int32.TryParse(val.Substring(4, 2), out int s))
+                {
+                    result = result.AddHours(h).AddMinutes(m).AddSeconds(s);
+                }
+                int i1 = val.IndexOf("[");
+                int i2 = val.IndexOf(":");
+                if (i1 != -1 && i2 != -1 && i2 > i1)
+                {
+                    string xxx = val.Substring(i1 + 1, i2 - i1);
+                    if (Int32.TryParse(val.Substring(i1+1, i2-i1-1), out int offset))
+                    {
+                        result = new DateTimeOffset(result.DateTime, new TimeSpan(offset, 0, 0));
+                    }
+                }
+            }
+            return result;
+        }
+
         /// <summary>
         /// Gets a Decimal value from the specified node.
         /// </summary>

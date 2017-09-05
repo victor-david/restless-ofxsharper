@@ -102,6 +102,16 @@ namespace Restless.OfxSharper
             get;
             private set;
         }
+
+        /// <summary>
+        /// PROCENDTM. Time of day that day’s processing ends, time
+        /// </summary>
+        [NodeInfo("PROCENDTM", Required = true)]
+        public DateTimeOffset ProcessingEndsTime
+        {
+            get;
+            private set;
+        }
         #endregion
 
         /************************************************************************/
@@ -125,6 +135,7 @@ namespace Restless.OfxSharper
                 DefaultDaysToPay = GetIntegerValue(GetNestedNode(rootNode, GetNodeName(nameof(DefaultDaysToPay))));
                 ModelWindow = GetIntegerValue(GetNestedNode(rootNode, GetNodeName(nameof(ModelWindow))));
                 PopulateList(ProcessingDaysOff, nameof(ProcessingDaysOff), rootNode);
+                ProcessingEndsTime = GetDateTimeOffset(GetNestedNode(rootNode, GetNodeName(nameof(ProcessingEndsTime))));
             }
         }
         #endregion

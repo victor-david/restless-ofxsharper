@@ -16,7 +16,8 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the basic profile information for bank operations.
         /// </summary>
-        public ProfileData Bank
+        [NodeInfo("BANKMSGSETV1")]
+        public AccountProfile Bank
         {
             get;
             private set;
@@ -25,6 +26,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the basic profile information for bill pay operations.
         /// </summary>
+        [NodeInfo("BILLPAYMSGSETV1")]
         public BillPayProfile BillPay
         {
             get;
@@ -34,7 +36,8 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the basic profile information for credit card operations.
         /// </summary>
-        public ProfileData CreditCard
+        [NodeInfo("CREDITCARDMSGSETV1")]
+        public AccountProfile CreditCard
         {
             get;
             private set;
@@ -43,6 +46,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the profile information for email operations.
         /// </summary>
+        [NodeInfo("EMAILMSGSETV1")]
         public EmailProfile Email
         {
             get;
@@ -52,6 +56,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the basic profile information for profile operations.
         /// </summary>
+        [NodeInfo("PROFMSGSETV1")]
         public ProfileData Profile
         {
             get;
@@ -61,6 +66,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the basic profile information for signon operations.
         /// </summary>
+        [NodeInfo("SIGNONMSGSETV1")]
         public ProfileData SignOn
         {
             get;
@@ -70,6 +76,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the basic profile information for signup operations.
         /// </summary>
+        [NodeInfo("SIGNUPMSGSETV1")]
         public ProfileData SignUp
         {
             get;
@@ -79,6 +86,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the profile information regarding inta bank transfers.
         /// </summary>
+        [NodeInfo("XFERPROF")]
         public TransferProfile Transfer
         {
             get;
@@ -88,6 +96,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the signon info portion of the profile.
         /// </summary>
+        [NodeInfo("SIGNONINFO")]
         public SignonInfoProfile SignonInfo
         {
             get;
@@ -97,6 +106,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the institution info portion of the profile.
         /// </summary>
+        [NodeInfo("DTPROFUP")]
         public InstitutionProfile Institution
         {
             get;
@@ -114,16 +124,16 @@ namespace Restless.OfxSharper
         /// <param name="xmlDoc">The Xml document</param>
         public OfxProfileResponse(OfxHeader header, XmlDocument xmlDoc) : base(header, xmlDoc)
         {
-            Bank = new ProfileData(GetNestedNode(xmlDoc.FirstChild, "BANKMSGSETV1"));
-            BillPay = new BillPayProfile(GetNestedNode(xmlDoc.FirstChild, "BILLPAYMSGSETV1"));
-            CreditCard = new ProfileData(GetNestedNode(xmlDoc.FirstChild, "CREDITCARDMSGSETV1"));
-            Email = new EmailProfile(GetNestedNode(xmlDoc.FirstChild, "EMAILMSGSETV1"));
-            Profile = new ProfileData(GetNestedNode(xmlDoc.FirstChild, "PROFMSGSETV1"));
-            SignOn = new ProfileData(GetNestedNode(xmlDoc.FirstChild, "SIGNONMSGSETV1"));
-            SignUp = new ProfileData(GetNestedNode(xmlDoc.FirstChild, "SIGNUPMSGSETV1"));
-            Transfer = new TransferProfile(GetNestedNode(xmlDoc.FirstChild, "XFERPROF"));
-            SignonInfo = new SignonInfoProfile(GetNestedNode(xmlDoc.FirstChild, "SIGNONINFO"));
-            Institution = new InstitutionProfile(GetNestedNode(xmlDoc.FirstChild, "DTPROFUP"));
+            Bank = new AccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Bank))));
+            BillPay = new BillPayProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(BillPay))));
+            CreditCard = new AccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(CreditCard))));
+            Email = new EmailProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Email))));
+            Profile = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Profile))));
+            SignOn = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignOn))));
+            SignUp = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignUp))));
+            Transfer = new TransferProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Transfer))));
+            SignonInfo = new SignonInfoProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignonInfo))));
+            Institution = new InstitutionProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Institution))));
         }
         #endregion
     }

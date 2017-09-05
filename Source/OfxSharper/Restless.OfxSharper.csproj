@@ -91,6 +91,7 @@
     <Compile Include="Core\Balance.cs" />
     <Compile Include="Enumerations\BankAccountType.cs" />
     <Compile Include="Core\TransactionMessageBase.cs" />
+    <Compile Include="OfxProfileResponse\AccountProfile.cs" />
     <Compile Include="OfxResponse\InstitutionIdentification.cs" />
     <Compile Include="OfxResponse\Payee.cs" />
     <Compile Include="Statements\BankClosingStatementPeriod.cs" />

@@ -167,8 +167,8 @@ namespace Restless.OfxSharper
         /// <summary>
         /// PROCENDTM. Time of day that day’s processing ends, time
         /// </summary>
-        [NodeInfo("PROCENDTM")]
-        public DateTime ProcessingEndsTime
+        [NodeInfo("PROCENDTM", Required = true)]
+        public DateTimeOffset ProcessingEndsTime
         {
             get;
             private set;
@@ -225,7 +225,8 @@ namespace Restless.OfxSharper
                 PaymentByTransfer = GetBooleanValue(GetNestedNode(rootNode, GetNodeName(nameof(PaymentByTransfer))));
                 PostProcessWindow = GetIntegerValue(GetNestedNode(rootNode, GetNodeName(nameof(PostProcessWindow))));
                 PopulateList(ProcessingDaysOff, nameof(ProcessingDaysOff), rootNode);
-                // ProcessingEndsTime 
+                ProcessingEndsTime = GetDateTimeOffset(GetNestedNode(rootNode, GetNodeName(nameof(ProcessingEndsTime))));
+                string nodeValue = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(ProcessingEndsTime))));
                 StatusChangeSuported = GetBooleanValue(GetNestedNode(rootNode, GetNodeName(nameof(StatusChangeSuported))));
                 WithdrawalDaysOffset = GetIntegerValue(GetNestedNode(rootNode, GetNodeName(nameof(WithdrawalDaysOffset))));
             }
