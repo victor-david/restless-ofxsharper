@@ -39,7 +39,7 @@ namespace Restless.OfxSharper
         {
             get
             {
-                if (index >= 0 && index < Count - 1)
+                if (index >= 0 && index < Count)
                 {
                     return list[index];
                 }
