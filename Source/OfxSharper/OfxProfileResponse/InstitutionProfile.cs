@@ -114,16 +114,6 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// DTPROFUP. Date / time profile was updated on server, datetime.
-        /// </summary>
-        [NodeInfo("DTPROFUP")]
-        public DateTime ProfileDate
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// STATE. FI address state, A-5.
         /// </summary>
         [NodeInfo("STATE")]
@@ -165,7 +155,6 @@ namespace Restless.OfxSharper
                 FaxPhone = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(FaxPhone))));
                 Name = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Name))));
                 PostalCode = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(PostalCode))));
-                ProfileDate = GetDateTimeValue(GetNestedNode(rootNode, GetNodeName(nameof(ProfileDate))));
                 State = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(State))));
                 TechSupportPhone = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(TechSupportPhone))));
             }

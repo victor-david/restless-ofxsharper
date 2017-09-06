@@ -33,7 +33,10 @@ namespace Restless.OfxSharper
         /// <param name="rootNode">The root node from which to find data for this class.</param>
         internal BankAccountProfile(XmlNode rootNode) : base(rootNode)
         {
-            Transfer = new IntraBankTransferProfile(GetNestedNode(rootNode, GetNodeName(nameof(Transfer))));
+            if (rootNode != null)
+            {
+                Transfer = new IntraBankTransferProfile(GetNestedNode(rootNode, GetNodeName(nameof(Transfer))));
+            }
         }
         #endregion
     }

@@ -14,6 +14,16 @@ namespace Restless.OfxSharper
     {
         #region Public properties
         /// <summary>
+        /// DTPROFUP. Date / time profile was updated on server, datetime.
+        /// </summary>
+        [NodeInfo("DTPROFUP")]
+        public DateTime ProfileDate
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// Gets the basic profile information for bank operations.
         /// </summary>
         [NodeInfo("BANKMSGSETV1")]
@@ -96,7 +106,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets the institution info portion of the profile.
         /// </summary>
-        [NodeInfo("DTPROFUP")]
+        [NodeInfo("FINAME")]
         public InstitutionProfile Institution
         {
             get;
@@ -114,6 +124,7 @@ namespace Restless.OfxSharper
         /// <param name="xmlDoc">The Xml document</param>
         public OfxProfileResponse(OfxHeader header, XmlDocument xmlDoc) : base(header, xmlDoc)
         {
+            ProfileDate = GetDateTimeValue(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(ProfileDate))));
             Bank = new BankAccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Bank))));
             BillPay = new BillPayProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(BillPay))));
             CreditCard = new AccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(CreditCard))));
