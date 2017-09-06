@@ -302,17 +302,6 @@ namespace Restless.OfxSharper
             }
             return (TransactionCorrectionAction)Enum.Parse(typeof(TransactionCorrectionAction), transactionCorrectionType, true);
         }
-
-        /// <summary>
-        /// Checks if a node exists
-        /// </summary>
-        /// <param name="node">Node to search in</param>
-        /// <param name="xpath">XPath to node you want to see if exists</param>
-        /// <returns></returns>
-        private bool NodeExists(XmlNode node, string xpath)
-        {
-            return (node.SelectSingleNode(xpath) != null);
-        }
         #endregion
     }
 }
