@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidOperationAccountType" xml:space="preserve">
+    <value>Invalid account type for this operation</value>
+  </data>
+  <data name="InvalidOperationTransferAmount" xml:space="preserve">
+    <value>Invalid transfer amount</value>
+  </data>
+  <data name="InvalidOperationTransferDestination" xml:space="preserve">
+    <value>Invalid transfer destination</value>
+  </data>
+  <data name="InvalidOperationTransferSource" xml:space="preserve">
+    <value>Invalid transfer source. Must be bank account.</value>
+  </data>
 </root>

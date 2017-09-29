@@ -96,6 +96,11 @@
     <Compile Include="OfxProfileResponse\AccountProfile.cs" />
     <Compile Include="OfxResponse\InstitutionIdentification.cs" />
     <Compile Include="OfxResponse\Payee.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Statements\BankClosingStatementPeriod.cs" />
     <Compile Include="Statements\CommonStatementBase.cs" />
     <Compile Include="Statements\ClosingStatementPeriodCollection.cs" />
@@ -138,7 +143,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Strings.resx" />
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

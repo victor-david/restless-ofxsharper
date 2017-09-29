@@ -48,7 +48,7 @@ namespace Restless.OfxSharper
         /// <param name="newFileId">The new file id, or null to use NONE.</param>
         public void BuildOfxRequest(Action buildCallback, string oldFileId = null, string newFileId = null)
         {
-            ValidateNull(buildCallback, "BuildOfxRequest.BuildCallback");
+            ValidateNull(buildCallback, nameof(buildCallback));
             builder.Clear();
             // Create the header
             if (String.IsNullOrEmpty(oldFileId)) oldFileId = "NONE";
@@ -75,7 +75,7 @@ namespace Restless.OfxSharper
         /// <param name="bank">The bank</param>
         public void BuildSignOnMessageSet(IBank bank)
         {
-            ValidateNull(bank, "BuildSignOnMessageSet.Bank");
+            ValidateNull(bank, nameof(bank));
             builder.AppendLine("<SIGNONMSGSRQV1>");
             builder.AppendLine("<SONRQ>");
             builder.AppendLine(String.Format("<DTCLIENT>{0}", DateTime.Now.ToString("yyyyMMddhhmmss")));
@@ -120,7 +120,7 @@ namespace Restless.OfxSharper
         /// </param>
         public void BuildBankMessageSet(Action buildCallback)
         {
-            ValidateNull(buildCallback, "BuildOfxRequest.BuildCallback");
+            ValidateNull(buildCallback, nameof(buildCallback));
             builder.AppendLine("<BANKMSGSRQV1>");
             buildCallback();
             builder.AppendLine("</BANKMSGSRQV1>");
@@ -135,7 +135,7 @@ namespace Restless.OfxSharper
         /// </param>
         public void BuildCreditCardMessageSet(Action buildCallback)
         {
-            ValidateNull(buildCallback, "BuildOfxRequest.BuildCallback");
+            ValidateNull(buildCallback, nameof(buildCallback));
             builder.AppendLine("<CREDITCARDMSGSRQV1>");
             buildCallback();
             builder.AppendLine("</CREDITCARDMSGSRQV1>");
@@ -151,7 +151,8 @@ namespace Restless.OfxSharper
         /// <param name="includeTransactions">true to include transactions.</param>
         public void BuildBankStatementRequest(IAccount account, DateTime? dateStart, DateTime? dateEnd, bool includeTransactions)
         {
-            ValidateNull(account, "BuildBankStatementRequest.Account");
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.Bank, Resources.Strings.InvalidOperationAccountType);
             Guid transId = Guid.NewGuid();
             builder.AppendLine("<STMTTRNRQ>");
             builder.AppendLine(String.Format("<TRNUID>{0}", transId));
@@ -172,7 +173,8 @@ namespace Restless.OfxSharper
         /// <param name="includeTransactions">true to include transactions.</param>
         public void BuildCreditCardStatementRequest(IAccount account, DateTime? dateStart, DateTime? dateEnd, bool includeTransactions)
         {
-            ValidateNull(account, "BuildCreditCardStatementRequest.Account");
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.CreditCard, Resources.Strings.InvalidOperationAccountType);
             Guid transId = Guid.NewGuid();
             builder.AppendLine("<CCSTMTTRNRQ>");
             builder.AppendLine(String.Format("<TRNUID>{0}", transId));
@@ -192,7 +194,8 @@ namespace Restless.OfxSharper
         /// <param name="dateEnd">The date to end, or null.</param>
         public void BuildBankClosingStatementRequest(IAccount account, DateTime? dateStart, DateTime? dateEnd)
         {
-            ValidateNull(account, "BuildBankClosingStatementRequest.Account");
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.Bank, Resources.Strings.InvalidOperationAccountType);
             Guid transId = Guid.NewGuid();
             builder.AppendLine("<STMTENDTRNRQ>");
             builder.AppendLine(String.Format("<TRNUID>{0}", transId));
@@ -213,7 +216,8 @@ namespace Restless.OfxSharper
         /// <param name="dateEnd">The ending date, or null for none (server will decide)</param>
         public void BuildCreditCardClosingStatementRequest(IAccount account, DateTime? dateStart, DateTime? dateEnd)
         {
-            ValidateNull(account, "BuildCreditCardClosingStatementRequest.Account");
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.CreditCard, Resources.Strings.InvalidOperationAccountType);
             Guid transId = Guid.NewGuid();
             builder.AppendLine("<CCSTMTENDTRNRQ>");
             builder.AppendLine(String.Format("<TRNUID>{0}", transId));
@@ -223,6 +227,46 @@ namespace Restless.OfxSharper
             BuildDateIf("<DTEND>", dateEnd);
             builder.AppendLine("</CCSTMTENDRQ>");
             builder.AppendLine("</CCSTMTENDTRNRQ>");
+        }
+
+        /// <summary>
+        /// Build a intra bank transfer request.
+        /// This method must be called from the callback method of <see cref="BuildBankMessageSet(Action)"/>
+        /// </summary>
+        /// <param name="sourceAcct">The source account.</param>
+        /// <param name="destinationAcct">The destination account.</param>
+        /// <param name="amount">The amount to transfer.</param>
+        public void BuildIntraBankTransferRequest(IAccount sourceAcct, IAccount destinationAcct, Decimal amount)
+        {
+            ValidateNull(sourceAcct, nameof(sourceAcct));
+            ValidateNull(destinationAcct, nameof(destinationAcct));
+            ValidateOfxOperation(sourceAcct.AccountType != AccountType.Bank, Resources.Strings.InvalidOperationTransferSource);
+            ValidateOfxOperation(destinationAcct.AccountType == AccountType.Unspecified, Resources.Strings.InvalidOperationTransferSource);
+            ValidateOfxOperation(amount <= 0, Resources.Strings.InvalidOperationTransferAmount);
+            Guid transId = Guid.NewGuid();
+            builder.AppendLine("<INTRATRNRQ>");
+            builder.AppendLine(String.Format("<TRNUID>{0}", transId));
+            builder.AppendLine("<INTRARQ>");
+            builder.AppendLine("<XFERINFO>");
+
+            BuildBankAccountFrom(sourceAcct);
+
+            switch (destinationAcct.AccountType)
+            {
+                case AccountType.Bank:
+                    BuildBankAccountTo(destinationAcct);
+                    break;
+                case AccountType.CreditCard:
+                    BuildCreditCardAccountTo(destinationAcct);
+                    break;
+                default:
+                    throw new OfxException(Resources.Strings.InvalidOperationAccountType);
+            }
+
+            builder.AppendLine(String.Format("<TRNAMT>{0}", amount.ToString("N2")));
+            builder.AppendLine("</XFERINFO>");
+            builder.AppendLine("</INTRARQ>");
+            builder.AppendLine("</INTRATRNRQ>");
         }
 
         /// <summary>
@@ -251,6 +295,19 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
+        /// Builds the BANKACCTTO aggregate.
+        /// </summary>
+        /// <param name="account">The account.</param>
+        private void BuildBankAccountTo(IAccount account)
+        {
+            builder.AppendLine("<BANKACCTTO>");
+            builder.AppendLine(String.Format("<BANKID>{0}", account.BankId));
+            builder.AppendLine(String.Format("<ACCTID>{0}", account.AccountId));
+            builder.AppendLine(String.Format("<ACCTTYPE>{0}", Enum.GetName(typeof(BankAccountType), account.BankAccountType).ToUpperInvariant()));
+            builder.AppendLine("</BANKACCTTO>");
+        }
+
+        /// <summary>
         /// Builds the CCACCTFROM aggregate.
         /// </summary>
         /// <param name="account">The account.</param>
@@ -259,6 +316,17 @@ namespace Restless.OfxSharper
             builder.AppendLine("<CCACCTFROM>");
             builder.AppendLine(String.Format("<ACCTID>{0}", account.AccountId));
             builder.AppendLine("</CCACCTFROM>");
+        }
+
+        /// <summary>
+        /// Builds the CCACCTTO aggregate.
+        /// </summary>
+        /// <param name="account">The account.</param>
+        private void BuildCreditCardAccountTo(IAccount account)
+        {
+            builder.AppendLine("<CCACCTTO>");
+            builder.AppendLine(String.Format("<ACCTID>{0}", account.AccountId));
+            builder.AppendLine("</CCACCTTO>");
         }
 
         /// <summary>

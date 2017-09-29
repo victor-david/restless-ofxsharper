@@ -16,6 +16,11 @@
         string BankId { get; set; }
 
         /// <summary>
+        /// Gets or sets the account type.
+        /// </summary>
+        AccountType AccountType { get; set; }
+
+        /// <summary>
         /// Gets or sets the bank account type.
         /// </summary>
         BankAccountType BankAccountType { get; set; }
