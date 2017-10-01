@@ -12,6 +12,15 @@ namespace Restless.OfxSharper
     /// </summary>
     public class Payee : OfxObjectBase
     {
+        #region Internal fields
+        internal const string PayeeSyncResponse = "PAYEESYNCRS";
+        internal const string PayeeTransaction = "PAYEETRNRS";
+        internal const string PayeeResponse = "PAYEERS";
+        internal const string PayeeData = "PAYEE";
+        #endregion
+
+        /************************************************************************/
+
         #region Public properties
         /// <summary>
         /// ADDR1. Payee address, line 1, A-32.
@@ -64,10 +73,20 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// PHONE. Payee's telephone number.
+        /// DAYSTOPAY. Gets the number of days before payment occurs.
         /// </summary>
-        [NodeInfo("PHONE")]
-        public string Phone
+        [NodeInfo("DAYSTOPAY")]
+        public int DaysToPay
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// PAYEELSTID. List id for the payee.
+        /// </summary>
+        [NodeInfo("PAYEELSTID")]
+        public string ListId
         {
             get;
             private set;
@@ -78,6 +97,26 @@ namespace Restless.OfxSharper
         /// </summary>
         [NodeInfo("NAME")]
         public string Name
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// PAYACCT. Payee account.
+        /// </summary>
+        [NodeInfo("PAYACCT")]
+        public string PayAccount
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// PHONE. Payee's telephone number.
+        /// </summary>
+        [NodeInfo("PHONE")]
+        public string Phone
         {
             get;
             private set;
@@ -113,6 +152,13 @@ namespace Restless.OfxSharper
         /// <param name="rootNode">The root node from which to find data for this class.</param>
         internal Payee(XmlNode rootNode)
         {
+            // Note: When this constructor is called from the constructor of PayeeCollection, 
+            // DaysToPay, ListId and PayAccount (if present) will be set because rootNode is at a higher
+            // level than these items and GetNestedNode will find them.
+            //
+            // However, when calling this constructor from the constructor of Transaction, these items
+            // will not get set because root node arrives here as PAYEE and these items are not nested
+            // within. May need to revisit, but for now, going to leave it.
             if (rootNode != null)
             {
                 Address1 = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Address1))));
@@ -120,7 +166,10 @@ namespace Restless.OfxSharper
                 Address3 = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Address3))));
                 City = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(City))));
                 Country = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Country))));
+                DaysToPay = GetIntegerValue(GetNestedNode(rootNode, GetNodeName(nameof(DaysToPay))));
+                ListId = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(ListId))));
                 Name = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Name))));
+                PayAccount = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(PayAccount))));
                 Phone = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Phone))));
                 PostalCode = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(PostalCode))));
                 State = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(State))));

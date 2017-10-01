@@ -38,7 +38,7 @@ namespace Restless.OfxSharper
 
         /************************************************************************/
 
-        #region Public methods
+        #region Public methods (main entry method)
         /// <summary>
         /// Builds an Ofx request. This is the top level method you must call. All other calls
         /// are nested via <paramref name="buildCallback"/>.
@@ -67,7 +67,11 @@ namespace Restless.OfxSharper
             buildCallback();
             builder.AppendLine("</OFX>");
         }
+        #endregion
 
+        /************************************************************************/
+        
+        #region Public methods (Message sets)
         /// <summary>
         /// Builds a signon message set, SIGNONMSGSRQV1.
         /// This method must be called from the callback method of <see cref="BuildOfxRequest(Action, string, string)"/>
@@ -141,6 +145,40 @@ namespace Restless.OfxSharper
             builder.AppendLine("</CREDITCARDMSGSRQV1>");
         }
 
+        /// <summary>
+        /// Build a signup message set request, SIGNUPMSGSRQV1.
+        /// This method must be called from the callback method of <see cref="BuildOfxRequest(Action, string, string)"/>
+        /// </summary>
+        /// <param name="buildCallback">
+        /// Use this callback method to call specific build methods that will build inside the signup message set.
+        /// </param>
+        public void BuildSignupMessageSet(Action buildCallback)
+        {
+            ValidateNull(buildCallback, nameof(buildCallback));
+            builder.AppendLine("<SIGNUPMSGSRQV1>");
+            buildCallback();
+            builder.AppendLine("</SIGNUPMSGSRQV1>");
+        }
+
+        /// <summary>
+        /// Build a bill pay message set request, BILLPAYMSGSRQV1.
+        /// This method must be called from the callback method of <see cref="BuildOfxRequest(Action, string, string)"/>
+        /// </summary>
+        /// <param name="buildCallback">
+        /// Use this callback method to call specific build methods that will build inside the bill pay message set.
+        /// </param>
+        public void BuildBillPayMessageSet(Action buildCallback)
+        {
+            ValidateNull(buildCallback, nameof(buildCallback));
+            builder.AppendLine("<BILLPAYMSGSRQV1>");
+            buildCallback();
+            builder.AppendLine("</BILLPAYMSGSRQV1>");
+        }
+        #endregion
+
+        /************************************************************************/
+
+        #region Public methods (operations inside of message sets)
         /// <summary>
         /// Build a bank statement request, STMTTRNRQ.
         /// This method must be called from the callback method of <see cref="BuildBankMessageSet(Action)"/>
@@ -269,6 +307,38 @@ namespace Restless.OfxSharper
             builder.AppendLine("</INTRATRNRQ>");
         }
 
+        /// <summary>
+        /// Builds an account information request.
+        /// This method must be called from the callback method of <see cref="BuildSignupMessageSet(Action)"/>
+        /// </summary>
+        public void BuildAccountInfoRequest()
+        {
+            Guid transId = Guid.NewGuid();
+            builder.AppendLine("<ACCTINFOTRNRQ>");
+            builder.AppendLine(String.Format("<TRNUID>{0}", transId));
+            builder.AppendLine("<CLTCOOKIE>4");
+            builder.AppendLine("<ACCTINFORQ>");
+            builder.AppendLine("<DTACCTUP>19700101");
+            builder.AppendLine("</ACCTINFORQ>");
+            builder.AppendLine("</ACCTINFOTRNRQ>");
+        }
+
+        /// <summary>
+        /// Build a payee list request, PAYEESYNCRQ
+        /// This method must be called from the callback method of <see cref="BuildBillPayMessageSet(Action)"/>
+        /// </summary>
+        public void BuildPayeeListRequest()
+        {
+            builder.AppendLine("<PAYEESYNCRQ>");
+            builder.AppendLine("<REFRESH>Y");
+            builder.AppendLine("<REJECTIFMISSING>N");
+            builder.AppendLine("</PAYEESYNCRQ>");
+        }
+        #endregion
+
+        /************************************************************************/
+
+        #region Public methods (other)
         /// <summary>
         /// Clears the builder
         /// </summary>

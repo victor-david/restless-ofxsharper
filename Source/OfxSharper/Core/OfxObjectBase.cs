@@ -137,7 +137,7 @@ namespace Restless.OfxSharper
         /// <returns>The node value, trimmed.</returns>
         protected string GetNodeValue(XmlNode node)
         {
-            if (node != null && node.FirstChild != null)
+            if (node != null && node.FirstChild != null && !String.IsNullOrEmpty(node.FirstChild.Value))
             {
                 return node.FirstChild.Value.Trim();
             }
@@ -167,6 +167,18 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
+        /// Gets a boolean value using the specified root node and the specified property name.
+        /// The property must be decorated with a <see cref="NodeInfoAttribute"/>.
+        /// </summary>
+        /// <param name="rootNode">The root node from which to find data for the property.</param>
+        /// <param name="propertyName">The name of the property</param>
+        /// <returns>A boolean</returns>
+        protected bool GetBooleanValue(XmlNode rootNode, string propertyName)
+        {
+            return GetBooleanValue(GetNestedNode(rootNode, GetNodeName(propertyName)));
+        }
+
+        /// <summary>
         /// Gets an integer value from the specified node.
         /// </summary>
         /// <param name="node">The node.</param>
@@ -178,6 +190,18 @@ namespace Restless.OfxSharper
                 return result;
             }
             return 0;
+        }
+
+        /// <summary>
+        /// Gets an integern value using the specified root node and the specified property name.
+        /// The property must be decorated with a <see cref="NodeInfoAttribute"/>.
+        /// </summary>
+        /// <param name="rootNode">The root node from which to find data for the property.</param>
+        /// <param name="propertyName">The name of the property</param>
+        /// <returns>An integer</returns>
+        protected int GetIntegerValue(XmlNode rootNode, string propertyName)
+        {
+            return GetIntegerValue(GetNestedNode(rootNode, GetNodeName(propertyName)));
         }
 
         /// <summary>

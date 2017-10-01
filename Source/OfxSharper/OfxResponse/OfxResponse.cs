@@ -18,6 +18,12 @@ namespace Restless.OfxSharper
             get;
             private set;
         }
+
+        public PayeeCollection Payees
+        {
+            get;
+            private set;
+        }
         #endregion
 
         /************************************************************************/
@@ -31,6 +37,7 @@ namespace Restless.OfxSharper
         internal OfxResponse(OfxHeader header, XmlDocument xmlDoc) : base (header, xmlDoc)
         {
             Statements = new StatementCollection(xmlDoc);
+            Payees = new PayeeCollection(xmlDoc);
         }
         #endregion
 

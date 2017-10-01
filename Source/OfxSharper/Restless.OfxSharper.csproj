@@ -96,6 +96,7 @@
     <Compile Include="OfxProfileResponse\AccountProfile.cs" />
     <Compile Include="OfxResponse\InstitutionIdentification.cs" />
     <Compile Include="OfxResponse\Payee.cs" />
+    <Compile Include="OfxResponse\PayeeCollection.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
