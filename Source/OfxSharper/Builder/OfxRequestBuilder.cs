@@ -360,7 +360,7 @@ namespace Restless.OfxSharper
             builder.AppendLine("<BANKACCTFROM>");
             builder.AppendLine(String.Format("<BANKID>{0}", account.BankId));
             builder.AppendLine(String.Format("<ACCTID>{0}", account.AccountId));
-            builder.AppendLine(String.Format("<ACCTTYPE>{0}", Enum.GetName(typeof(BankAccountType), account.BankAccountType).ToUpperInvariant()));
+            builder.AppendLine(String.Format("<ACCTTYPE>{0}", account.BankAccountType.ToUpperString()));
             builder.AppendLine("</BANKACCTFROM>");
         }
 
@@ -373,7 +373,7 @@ namespace Restless.OfxSharper
             builder.AppendLine("<BANKACCTTO>");
             builder.AppendLine(String.Format("<BANKID>{0}", account.BankId));
             builder.AppendLine(String.Format("<ACCTID>{0}", account.AccountId));
-            builder.AppendLine(String.Format("<ACCTTYPE>{0}", Enum.GetName(typeof(BankAccountType), account.BankAccountType).ToUpperInvariant()));
+            builder.AppendLine(String.Format("<ACCTTYPE>{0}", account.BankAccountType.ToUpperString()));
             builder.AppendLine("</BANKACCTTO>");
         }
 

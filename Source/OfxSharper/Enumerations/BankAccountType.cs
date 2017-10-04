@@ -42,15 +42,16 @@ namespace Restless.OfxSharper
     {
         internal static BankAccountType ToBankAccountType(this string str)
         {
-            try
+            if (Enum.TryParse(str, true, out BankAccountType result))
             {
-                return (BankAccountType)Enum.Parse(typeof(BankAccountType), str, true);
+                return result;
             }
-            catch (Exception)
-            {
+            return BankAccountType.InvalidOrUnknown;
+        }
 
-                return BankAccountType.InvalidOrUnknown;
-            }
+        internal static string ToUpperString(this BankAccountType bankAccountType)
+        {
+            return Enum.GetName(typeof(BankAccountType), bankAccountType).ToUpperInvariant();
         }
     }
 }

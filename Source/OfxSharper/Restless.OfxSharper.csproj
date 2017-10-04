@@ -80,12 +80,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\AccountInfo.cs" />
     <Compile Include="Accounts\CreditCardAccount.cs" />
     <Compile Include="Accounts\BankAccount.cs" />
+    <Compile Include="Accounts\AccountInfoCollection.cs" />
+    <Compile Include="Accounts\InvestmentAccount.cs" />
     <Compile Include="Core\IAccount.cs" />
     <Compile Include="Builder\OfxRequestBuilder.cs" />
     <Compile Include="Core\IBank.cs" />
     <Compile Include="Core\StringList.cs" />
+    <Compile Include="Enumerations\AccountInfoStatus.cs" />
+    <Compile Include="Enumerations\InvestmentAccountType.cs" />
+    <Compile Include="Enumerations\InvestmentProductType.cs" />
     <Compile Include="Enumerations\StatementType.cs" />
     <Compile Include="Enumerations\AccountType.cs" />
     <Compile Include="Accounts\AccountBase.cs" />

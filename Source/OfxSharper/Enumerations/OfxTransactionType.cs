@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 
 namespace Restless.OfxSharper
@@ -7,6 +8,10 @@ namespace Restless.OfxSharper
     /// </summary>
     public enum OfxTransactionType
     {
+        /// <summary>
+        /// The transaction type is unknown.
+        /// </summary>
+        Unknown,
         /// <summary>
         /// Generic credit
         /// </summary>
@@ -75,5 +80,17 @@ namespace Restless.OfxSharper
         /// Other
         /// </summary>
         OTHER
+    }
+
+    internal static class OfxTransactionTypeExtension
+    {
+        internal static OfxTransactionType ToOfxTransactionType(this string str)
+        {
+            if (Enum.TryParse(str, true, out OfxTransactionType result))
+            {
+                return result;
+            }
+            return OfxTransactionType.Unknown;
+        }
     }
 }

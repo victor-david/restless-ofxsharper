@@ -11,7 +11,7 @@ namespace Restless.OfxSharper
     {
         #region Public properties
         /// <summary>
-        /// Gets the statements for this Ofx response
+        /// Gets the statements for this Ofx response, if applicable
         /// </summary>
         public StatementCollection Statements
         {
@@ -19,7 +19,19 @@ namespace Restless.OfxSharper
             private set;
         }
 
+        /// <summary>
+        /// Gets the payee list for this OfxResponse, if applicable.
+        /// </summary>
         public PayeeCollection Payees
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the account information list for this Ofx response, of applicable.
+        /// </summary>
+        public AccountInfoCollection AccountInfo
         {
             get;
             private set;
@@ -38,6 +50,7 @@ namespace Restless.OfxSharper
         {
             Statements = new StatementCollection(xmlDoc);
             Payees = new PayeeCollection(xmlDoc);
+            AccountInfo = new AccountInfoCollection(xmlDoc);
         }
         #endregion
 

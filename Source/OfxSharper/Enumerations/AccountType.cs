@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper
 {
     /// <summary>
     /// Describes the supported type of financial institution accounts.
@@ -19,5 +17,9 @@ namespace Restless.OfxSharper
         /// A credit card account.
         /// </summary>
         CreditCard = 2,
+        /// <summary>
+        /// An investment account.
+        /// </summary>
+        Investment = 3,
     }
 }

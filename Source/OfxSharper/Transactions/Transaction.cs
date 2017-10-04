@@ -212,7 +212,7 @@ namespace Restless.OfxSharper
         /// <param name="defaultCurrency">The currency</param>
         internal Transaction(XmlNode rootNode, string defaultCurrency)
         {
-            TransType = GetTransactionType(GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(TransType)))));
+            TransType = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(TransType)))).ToOfxTransactionType();
             DatePosted = GetDateTimeValue(rootNode, nameof(DatePosted));
             DateInitiated = GetNullableDateTimeValue(rootNode, nameof(DateInitiated));
             DateAvailable = GetNullableDateTimeValue(rootNode, nameof(DateAvailable));
@@ -222,7 +222,7 @@ namespace Restless.OfxSharper
             ValidateOfxParseOperation(String.IsNullOrEmpty(TransactionId), "Cannot retreive transaction id");
 
             CorrectedTransactionId = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(CorrectedTransactionId))));
-            CorrectionAction = GetTransactionCorrectionType(GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(CorrectionAction)))));
+            CorrectionAction = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(CorrectionAction)))).ToTransactionCorrectionAction();
             ServerTransactionId = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(ServerTransactionId))));
 
             CheckNumber = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(CheckNumber))));
@@ -279,29 +279,6 @@ namespace Restless.OfxSharper
         /************************************************************************/
 
         #region Private methods
-        /// <summary>
-        /// Returns TransactionType from string version
-        /// </summary>
-        /// <param name="transactionType">string version of transaction type</param>
-        /// <returns>Enum version of given transaction type string</returns>
-        private OfxTransactionType GetTransactionType(string transactionType)
-        {
-            return (OfxTransactionType)Enum.Parse(typeof(OfxTransactionType), transactionType, true);
-        }
-
-        /// <summary>
-        /// Returns TransactionCorrectionType from string version
-        /// </summary>
-        /// <param name="transactionCorrectionType">string version of Transaction Correction Type</param>
-        /// <returns>Enum version of given TransactionCorrectionType string</returns>
-        private TransactionCorrectionAction GetTransactionCorrectionType(string transactionCorrectionType)
-        {
-            if (String.IsNullOrEmpty(transactionCorrectionType))
-            {
-                return TransactionCorrectionAction.None;
-            }
-            return (TransactionCorrectionAction)Enum.Parse(typeof(TransactionCorrectionAction), transactionCorrectionType, true);
-        }
         #endregion
     }
 }

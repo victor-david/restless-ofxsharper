@@ -9,15 +9,15 @@ using System.Xml;
 namespace Restless.OfxSharper
 {
     /// <summary>
-    /// Represents a collection of <see cref="Payee"/> objects
+    /// Represents a collection of <see cref="AccountInfo"/> objects
     /// </summary>
-    public class PayeeCollection : OfxObjectBase, ICollection<Payee>
+    public class AccountInfoCollection : OfxObjectBase, ICollection<AccountInfo>
     {
         #region Private
-        private List<Payee> list;
-        private const string PayeeSyncResponse = "PAYEESYNCRS";
-        private const string PayeeTransaction = "PAYEETRNRS";
-        private const string PayeeResponse = "PAYEERS";
+        private List<AccountInfo> list;
+        private const string AccountInfoResponse = "ACCTINFORS";
+        private const string AccountInfo = "ACCTINFO";
+
         #endregion
 
         /************************************************************************/
@@ -33,31 +33,23 @@ namespace Restless.OfxSharper
         /// </summary>
         public bool IsReadOnly => false;
 
+
         /// <summary>
-        /// Gets the token associated with the payee list.
+        /// Gets the date/time that the the account list was updated
         /// </summary>
-        [NodeInfo("TOKEN")]
-        public string Token
+        [NodeInfo("DTACCTUP")]
+        public DateTime Updated
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// Gets a boolean value that indicates if the server lost synchronization.
-        /// </summary>
-        [NodeInfo("LOSTSYNC")]
-        public bool LostSync
-        {
-            get;
-            private set;
-        }
-        /// <summary>
-        /// Gets the <see cref="Payee"/> object indexed by position.
+        /// Gets the <see cref="AccountInfo"/> object indexed by position.
         /// </summary>
         /// <param name="index">The index position</param>
         /// <returns>The statement</returns>
-        public Payee this[int index] 
+        public AccountInfo this[int index] 
         {
             get
             {
@@ -65,7 +57,7 @@ namespace Restless.OfxSharper
                 {
                     return list[index];
                 }
-                throw new KeyNotFoundException("PayeeCollection[index]");
+                throw new KeyNotFoundException("AccountInfoCollection[index]");
             }
         }
         #endregion
@@ -74,30 +66,44 @@ namespace Restless.OfxSharper
 
         #region Constructor (internal)
         /// <summary>
-        /// Initializes a new instance of the <see cref="PayeeCollection"/> class.
+        /// Initializes a new instance of the <see cref="AccountInfoCollection"/> class.
         /// </summary>
         /// <param name="xmlDoc">The xml document</param>
-        internal PayeeCollection(XmlDocument xmlDoc)
+        internal AccountInfoCollection(XmlDocument xmlDoc)
         {
-            list = new List<Payee>();
-            XmlNode payeeSyncNode = GetNestedNode(xmlDoc.FirstChild, PayeeSyncResponse);
+            list = new List<AccountInfo>();
+            XmlNode responseNode = GetNestedNode(xmlDoc.FirstChild, AccountInfoResponse);
 
-            if (payeeSyncNode != null)
+            if (responseNode != null)
             {
-                Token = GetNodeValue(payeeSyncNode, nameof(Token));
-                LostSync = GetBooleanValue(payeeSyncNode, nameof(LostSync));
-
-                var lostSyncNode = GetNestedNode(payeeSyncNode, GetNodeName(nameof(LostSync)));
-                if (lostSyncNode != null)
+                var updatedNode = GetNestedNode(responseNode, GetNodeName(nameof(Updated)));
+                if (updatedNode != null)
                 {
-                    foreach (XmlNode childNode in lostSyncNode.ChildNodes)
+                    Updated = GetDateTimeValue(updatedNode);
+                    foreach (XmlNode childNode in updatedNode.ChildNodes)
                     {
-                        if (childNode.Name == PayeeTransaction)
+                        if (childNode.Name == AccountInfo)
                         {
-                            var payeeRespNode = GetNestedNode(childNode, PayeeResponse);
-                            Add(new Payee(payeeRespNode));
+                            Add(new AccountInfo(childNode));
                         }
                     }
+                }
+                foreach (AccountInfo bps in this.Where((info) => info.IsBillPaySourceInternal))
+                {
+                    // get all not flagged internal bill pay and of account type Bank
+                    foreach (AccountInfo acct in this.Where((info) => !info.IsBillPaySourceInternal && info.Account.AccountType == AccountType.Bank))
+                    {
+                        // if match id and bank account type, flag as bill pay source.
+                        if (acct.Account.AccountId == bps.Account.AccountId && ((BankAccount)acct.Account).BankAccountType == ((BankAccount)bps.Account).BankAccountType)
+                        {
+                            acct.IsBillPaySource = true;
+                        }
+                    }
+                }
+                // Remove internally flagged entries. Their usage is temporary
+                foreach (AccountInfo bps in this.Where((i) => i.IsBillPaySourceInternal).ToList())
+                {
+                    Remove(bps);
                 }
             }
         }
@@ -115,7 +121,7 @@ namespace Restless.OfxSharper
         /// Adds an item to the collection.
         /// </summary>
         /// <param name="item">The item to add</param>
-        public void Add(Payee item)
+        public void Add(AccountInfo item)
         {
             ValidateNull(item, "Add.Item");
             list.Add(item);
@@ -134,7 +140,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="item">The item to check.</param>
         /// <returns>true if the item exists in the collection; otherwise, false.</returns>
-        public bool Contains(Payee item)
+        public bool Contains(AccountInfo item)
         {
             foreach (var listItem in list)
             {
@@ -151,7 +157,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">The array index to begin copying.</param>
-        public void CopyTo(Payee[] array, int arrayIndex)
+        public void CopyTo(AccountInfo[] array, int arrayIndex)
         {
             ValidateNull(array, "CopyTo.Array");
             ValidateOfxOperation(arrayIndex < 0, "Index out of bounds");
@@ -166,7 +172,7 @@ namespace Restless.OfxSharper
         /// Gets the enumerator for the collection.
         /// </summary>
         /// <returns>The enumerator</returns>
-        public IEnumerator<Payee> GetEnumerator()
+        public IEnumerator<AccountInfo> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -176,7 +182,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="item">The item</param>
         /// <returns>true if the item was removed, false if the item doesn't exist.</returns>
-        public bool Remove(Payee item)
+        public bool Remove(AccountInfo item)
         {
             if (Contains(item))
             {

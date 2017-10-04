@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Restless.OfxSharper
 {
@@ -20,5 +21,17 @@ namespace Restless.OfxSharper
         /// Delete the transaction.
         /// </summary>
         Delete,
+    }
+
+    internal static class TransactionCorrectionActionExtension
+    {
+        internal static TransactionCorrectionAction ToTransactionCorrectionAction(this string str)
+        {
+            if (Enum.TryParse(str, true, out TransactionCorrectionAction result))
+            {
+                return result;
+            }
+            return TransactionCorrectionAction.None;
+        }
     }
 }

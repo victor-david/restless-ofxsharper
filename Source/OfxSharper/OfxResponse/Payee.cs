@@ -12,15 +12,6 @@ namespace Restless.OfxSharper
     /// </summary>
     public class Payee : OfxObjectBase
     {
-        #region Internal fields
-        internal const string PayeeSyncResponse = "PAYEESYNCRS";
-        internal const string PayeeTransaction = "PAYEETRNRS";
-        internal const string PayeeResponse = "PAYEERS";
-        internal const string PayeeData = "PAYEE";
-        #endregion
-
-        /************************************************************************/
-
         #region Public properties
         /// <summary>
         /// ADDR1. Payee address, line 1, A-32.
