@@ -174,6 +174,21 @@ namespace Restless.OfxSharper
             buildCallback();
             builder.AppendLine("</BILLPAYMSGSRQV1>");
         }
+
+        /// <summary>
+        /// Build an email message set request, EMAILMSGSV1.
+        /// This method must be called from the callback method of <see cref="BuildOfxRequest(Action, string, string)"/>
+        /// </summary>
+        /// <param name="buildCallback">
+        /// Use this callback method to call specific build methods that will build inside the email message set.
+        /// </param>
+        public void BuildEmailMessageSet(Action buildCallback)
+        {
+            ValidateNull(buildCallback, nameof(buildCallback));
+            builder.AppendLine("<EMAILMSGSV1>"); 
+            buildCallback();
+            builder.AppendLine("</EMAILMSGSV1>");
+        }
         #endregion
 
         /************************************************************************/
@@ -265,6 +280,62 @@ namespace Restless.OfxSharper
             BuildDateIf("<DTEND>", dateEnd);
             builder.AppendLine("</CCSTMTENDRQ>");
             builder.AppendLine("</CCSTMTENDTRNRQ>");
+        }
+
+        /// <summary>
+        /// Build an email synchronization request (non account specific).
+        /// This method must be called from the callback method of <see cref="BuildEmailMessageSet(Action)"/>.
+        /// </summary>
+        /// <param name="token">The starting message token, or null for none (server will decide)</param>
+        public void BuildEmailSynchronizationRequest(string token)
+        {
+            if (String.IsNullOrEmpty(token)) token = "0";
+            builder.AppendLine("<MAILSYNCRQ>");
+            builder.AppendLine($"<TOKEN>{token}");
+            builder.AppendLine("<REJECTIFMISSING>N");
+            builder.AppendLine("<INCIMAGES>N");
+            builder.AppendLine("<USEHTML>N");
+            builder.AppendLine("</MAILSYNCRQ>");
+        }
+
+        /// <summary>
+        /// Build a bank statement request, BANKEMAILSYNCRQ, for a bank account.
+        /// This method must be called from the callback method of <see cref="BuildBankMessageSet(Action)"/>
+        /// </summary>
+        /// <param name="account">The account</param>
+        /// <param name="token">The starting message token, or null for none (server will decide)</param>
+        public void BuildBankMessageRequest(IAccount account, string token)
+        {
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.Bank, Resources.Strings.InvalidOperationAccountType);
+            if (String.IsNullOrEmpty(token)) token = "0";
+            builder.AppendLine("<BANKMAILSYNCRQ>");
+            builder.AppendLine($"<TOKEN>{token}");
+            builder.AppendLine("<REJECTIFMISSING>N");
+            builder.AppendLine("<INCIMAGES>N");
+            builder.AppendLine("<USEHTML>N");
+            BuildBankAccountFrom(account);
+            builder.AppendLine("</BANKMAILSYNCRQ>");
+        }
+
+        /// <summary>
+        /// Build a bank email request, BANKEMAILSYNCRQ, for a credit card account.
+        /// This method must be called from the callback method of <see cref="BuildBankMessageSet(Action)"/>
+        /// </summary>
+        /// <param name="account">The account</param>
+        /// <param name="token">The starting message token, or null for none (server will decide)</param>
+        public void BuildCreditCardMessageRequest(IAccount account, string token)
+        {
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.CreditCard, Resources.Strings.InvalidOperationAccountType);
+            if (String.IsNullOrEmpty(token)) token = "0";
+            builder.AppendLine("<BANKMAILSYNCRQ>");
+            builder.AppendLine($"<TOKEN>{token}");
+            builder.AppendLine("<REJECTIFMISSING>N");
+            builder.AppendLine("<INCIMAGES>N");
+            builder.AppendLine("<USEHTML>N");
+            BuildCreditCardAccountFrom(account);
+            builder.AppendLine("</BANKMAILSYNCRQ>");
         }
 
         /// <summary>
