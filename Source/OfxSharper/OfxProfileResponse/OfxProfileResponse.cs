@@ -112,6 +112,16 @@ namespace Restless.OfxSharper
             get;
             private set;
         }
+
+        /// <summary>
+        /// Gets the investment info portion of the profile.
+        /// </summary>
+        [NodeInfo("INVSTMTMSGSETV1")]
+        public InvestmentProfile Investment
+        {
+            get;
+            private set;
+        }
         #endregion
 
         /************************************************************************/
@@ -134,6 +144,8 @@ namespace Restless.OfxSharper
             SignUp = new ProfileData(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignUp))));
             SignonInfo = new SignonInfoProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(SignonInfo))));
             Institution = new InstitutionProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Institution))));
+            Investment = new InvestmentProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Investment))));
+
         }
         #endregion
     }

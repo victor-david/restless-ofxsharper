@@ -100,6 +100,7 @@
     <Compile Include="Core\TransactionMessageBase.cs" />
     <Compile Include="OfxProfileResponse\BankAccountProfile.cs" />
     <Compile Include="OfxProfileResponse\AccountProfile.cs" />
+    <Compile Include="OfxProfileResponse\InvestmentProfile.cs" />
     <Compile Include="OfxResponse\InstitutionIdentification.cs" />
     <Compile Include="OfxResponse\Payee.cs" />
     <Compile Include="OfxResponse\PayeeCollection.cs" />

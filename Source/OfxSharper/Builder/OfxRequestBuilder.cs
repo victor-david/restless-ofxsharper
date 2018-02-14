@@ -339,7 +339,7 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// Build a intra bank transfer request.
+        /// Build a intra bank transfer request, INTRATRNRQ.
         /// This method must be called from the callback method of <see cref="BuildBankMessageSet(Action)"/>
         /// </summary>
         /// <param name="sourceAcct">The source account.</param>
@@ -376,6 +376,25 @@ namespace Restless.OfxSharper
             builder.AppendLine("</XFERINFO>");
             builder.AppendLine("</INTRARQ>");
             builder.AppendLine("</INTRATRNRQ>");
+        }
+
+        /// <summary>
+        /// Builds an intra bank syncronization request for the specified account, INTRASYNCRQ.
+        /// This method must be called from the callback method of <see cref="BuildBankMessageSet(Action)"/>
+        /// </summary>
+        /// <param name="account">The account.</param>
+        /// <param name="token">The starting message token, or null for none (server will decide)</param>
+        public void BuildIntraBankTransferSyncRequest(IAccount account, string token)
+        {
+            ValidateNull(account, nameof(account));
+            ValidateOfxOperation(account.AccountType != AccountType.Bank, Resources.Strings.InvalidOperationAccountType);
+            if (String.IsNullOrEmpty(token)) token = "0";
+            builder.AppendLine("<INTRASYNCRQ>");
+            builder.AppendLine($"<TOKEN>{token}");
+            builder.AppendLine("<REFRESH>Y");
+            builder.AppendLine("<REJECTIFMISSING>N");
+            BuildBankAccountFrom(account);
+            builder.AppendLine("</INTRASYNCRQ>");
         }
 
         /// <summary>
