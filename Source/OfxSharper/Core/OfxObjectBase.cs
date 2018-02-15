@@ -330,7 +330,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Gets a Decimal value using the specified root node and the specified property name.
         /// The property must be decorated with a <see cref="NodeInfoAttribute"/>.
-        /// This method woll locate the nested node.
+        /// This method will locate the nested node.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for the property.</param>
         /// <param name="propertyName">The name of the property</param>
@@ -367,6 +367,16 @@ namespace Restless.OfxSharper
                 list.Add(GetNodeValue(node));
                 node = GetNestedNode(node.ChildNodes, nodeName);
             }
+        }
+
+        /// <summary>
+        /// Provided a boolean value, returns "Y" or "N".
+        /// </summary>
+        /// <param name="value">The boolean value.</param>
+        /// <returns>the string "Y" or "N".</returns>
+        protected string BooleanToString(bool value)
+        {
+            return (value) ? "Y" : "N";
         }
         #endregion
 

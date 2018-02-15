@@ -24,8 +24,8 @@ public void OfxProfileExample()
 
     builder.BuildOfxRequest(() =>
     {
-        builder.BuildSignOnMessageSet(bank);
-        builder.BuildProfileMessageSetRequest();
+        builder.Signon.BuildMessageSet(bank);
+        builder.Profile.BuildMessageSet();
     });
 
     // Send request to the bank and get the response
@@ -53,13 +53,13 @@ public void BankStatementDownload()
     OfxRequestBuilder builder = OfxFactory.CreateBuilder();
     builder.BuildOfxRequest(() =>
     {
-        builder.BuildSignOnMessageSet(bank);
+        builder.Signon.BuildMessageSet(bank);
 
-        builder.BuildBankMessageSet(() =>
+        builder.Bank.BuildMessageSet(() =>
         {
-            // in your app, you have to determine an appropiate date to start with.
+            // in your app, you'd have to determine an appropiate date to start with.
             DateTime fromDate = new DateTime(2017, 1, 1);
-            builder.BuildBankStatementRequest(account, fromDate, null, true);
+            builder.Bank.BuildStatementRequest(account, fromDate, null, true);
             // add another statement request if you've got another account at the same bank
         });
     });
@@ -85,15 +85,15 @@ public void CreditCardStatementDownload()
     OfxRequestBuilder builder = OfxFactory.CreateBuilder();
     builder.BuildOfxRequest(() =>
     {
-        builder.BuildSignOnMessageSet(bank);
+        builder.Signon.BuildMessageSet(bank);
 
-        builder.BuildCreditCardMessageSet(() =>
+        builder.CreditCard.BuildMessageSet(() =>
         {
-            // in your app, you have to determine an appropiate date to start with
+            // in your app, you'd have to determine an appropiate date to start with
             DateTime dateStart = new DateTime(2017, 1, 1);
-            builder.BuildCreditCardStatementRequest(account, dateStart, null, true);
+            builder.CreditCard.BuildStatementRequest(account, dateStart, null, true);
             // Not using a start date or and end date. Bank will deliver whatever they've got.
-            builder.BuildCreditCardClosingStatementRequest(account, null, null);
+            builder.CreditCard.BuildClosingStatementRequest(account, null, null);
         });
     });
 
@@ -117,7 +117,7 @@ public void CreditCardStatementDownload()
 ```c#
 public void BankAndCreditCardStatementDownload()
 {
-    // You need to get your own bank details into  an IBank object.
+    // You need to get your own bank details into an IBank object.
     IBank bank = GetMyBankInfo();
     // You need to get your own account details into an IAccount object.
     IAccount bankAccount = GetMyAccountInfo();
@@ -126,22 +126,22 @@ public void BankAndCreditCardStatementDownload()
     OfxRequestBuilder builder = OfxFactory.CreateBuilder();
     builder.BuildOfxRequest(() =>
     {
-        builder.BuildSignOnMessageSet(bank);
+        builder.Signon.BuildMessageSet(bank);
 
-        builder.BuildBankMessageSet(() =>
+        builder.Bank.BuildMessageSet(() =>
         {
             // in your app, you'd have to determine an appropiate date to start with.
             DateTime fromDate = new DateTime(2017, 1, 1);
-            builder.BuildBankStatementRequest(bankAccount, fromDate, null, true);
+            builder.Bank.BuildStatementRequest(bankAccount, fromDate, null, true);
         });
 
-        builder.BuildCreditCardMessageSet(() =>
+        builder.CreditCard.BuildMessageSet(() =>
         {
             // in your app, you'd have to determine an appropiate date to start with
             DateTime dateStart = new DateTime(2017, 1, 1);
-            builder.BuildCreditCardStatementRequest(creditCardAccount, dateStart, null, true);
+            builder.CreditCard.BuildStatementRequest(creditCardAccount, dateStart, null, true);
             // Not using a start date or and end date. Bank will deliver whatever they've got.
-            builder.BuildCreditCardClosingStatementRequest(creditCardAccount, null, null);
+            builder.CreditCard.BuildClosingStatementRequest(creditCardAccount, null, null);
         });
     });
 

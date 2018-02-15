@@ -29,9 +29,18 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// Gets the account information list for this Ofx response, of applicable.
+        /// Gets the account information list for this Ofx response, if applicable.
         /// </summary>
         public AccountInfoCollection AccountInfo
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the list of securities for thos Ofx response, if applicable.
+        /// </summary>
+        public SecurityCollection Securities
         {
             get;
             private set;
@@ -51,6 +60,7 @@ namespace Restless.OfxSharper
             Statements = new StatementCollection(xmlDoc);
             Payees = new PayeeCollection(xmlDoc);
             AccountInfo = new AccountInfoCollection(xmlDoc);
+            Securities = new SecurityCollection(xmlDoc);
         }
         #endregion
 

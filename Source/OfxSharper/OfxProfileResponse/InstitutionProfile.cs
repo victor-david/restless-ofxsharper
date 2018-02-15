@@ -44,6 +44,16 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
+        /// INTU.BROKERID. Broker Id. Thanks Quicken...
+        /// </summary>
+        [NodeInfo("INTU.BROKERID")]
+        public string BrokerId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// CITY. FI address city, A-32.
         /// </summary>
         [NodeInfo("CITY")]
@@ -148,6 +158,7 @@ namespace Restless.OfxSharper
                 Address1 = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Address1))));
                 Address2 = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Address2))));
                 Address3 = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Address3))));
+                BrokerId = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(BrokerId))));
                 City = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(City))));
                 Country = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Country))));
                 CustomerServicePhone = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(CustomerServicePhone))));

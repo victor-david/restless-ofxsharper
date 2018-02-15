@@ -85,6 +85,16 @@
     <Compile Include="Accounts\BankAccount.cs" />
     <Compile Include="Accounts\AccountInfoCollection.cs" />
     <Compile Include="Accounts\InvestmentAccount.cs" />
+    <Compile Include="Builder\InvestmentDownloadOptions.cs" />
+    <Compile Include="Builder\OfxEmailMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxBillPayMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxSignonMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxSignupMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxProfileMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxInvestmentMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxCreditCardMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxBankMessageSetBuilder.cs" />
+    <Compile Include="Builder\OfxMessageSetBuilderBase.cs" />
     <Compile Include="Core\IAccount.cs" />
     <Compile Include="Builder\OfxRequestBuilder.cs" />
     <Compile Include="Core\IBank.cs" />
@@ -109,6 +119,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Securities\DebtSecurityInfo.cs" />
+    <Compile Include="Securities\OtherSecurityInfo.cs" />
+    <Compile Include="Securities\OptionSecurityInfo.cs" />
+    <Compile Include="Securities\StockSecurityInfo.cs" />
+    <Compile Include="Securities\MutualFundSecurityInfo.cs" />
+    <Compile Include="Securities\SecurityId.cs" />
+    <Compile Include="Securities\SecurityCollection.cs" />
+    <Compile Include="Securities\SecurityInfoBase.cs" />
+    <Compile Include="Securities\SecurityType.cs" />
     <Compile Include="Statements\BankClosingStatementPeriod.cs" />
     <Compile Include="Statements\CommonStatementBase.cs" />
     <Compile Include="Statements\ClosingStatementPeriodCollection.cs" />
