@@ -13,7 +13,6 @@ namespace Restless.OfxSharper
     public abstract class SecurityInfoBase : OfxObjectBase
     {
         #region Public properties
-
         /// <summary>
         /// When implemented in a derived class, gets the type of security.
         /// </summary>
@@ -56,7 +55,7 @@ namespace Restless.OfxSharper
         /// Gets the financial institution assigned id for this security.
         /// </summary>
         [NodeInfo("FIID", Required = false)]
-        public string FinanicalId
+        public string FinancialId
         {
             get;
             private set;
@@ -119,7 +118,7 @@ namespace Restless.OfxSharper
                 Id = new SecurityId(GetNestedNode(rootNode, SecurityId.SecurityIdNode));
                 Name = GetNodeValue(rootNode, nameof(Name));
                 Ticker = GetNodeValue(rootNode, nameof(Ticker));
-                FinanicalId = GetNodeValue(rootNode, nameof(FinanicalId));
+                FinancialId = GetNodeValue(rootNode, nameof(FinancialId));
                 Rating = GetNodeValue(rootNode, nameof(Rating));
                 UnitPrice = GetDecimalValue(rootNode, nameof(UnitPrice));
                 DateAsOf = GetNullableDateTimeValue(rootNode, nameof(DateAsOf));

@@ -10,7 +10,7 @@ namespace Restless.OfxSharper.Builder
     /// <para>
     /// 2.4.5.2 Message Set Ordering. Message sets must appear in the following order:
     /// </para>
-    // <list type="bullet">
+    /// <list type="bullet">
     /// <item><description>Signon</description></item>
     /// <item><description>Signup</description></item>
     /// <item><description>Banking</description></item>
