@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Profile
 {
     /// <summary>
     /// Represents basic profile information for a financial institution.

@@ -1,4 +1,5 @@
-﻿using Restless.OfxSharper.Resources;
+﻿using Restless.OfxSharper.Core;
+using Restless.OfxSharper.Resources;
 using System;
 using System.Text;
 

@@ -6,12 +6,13 @@ using System.Xml;
 namespace Restless.OfxSharper
 {
     /// <summary>
-    /// Represents a collection of <see cref="StatementBase"/> objects
+    /// Represents a collection of <see cref="SecurityInfoBase"/> objects
     /// </summary>
-    public class StatementCollection : OfxObjectBase, ICollection<StatementBase>
+    public class SecurityInfoCollection : OfxObjectBase, ICollection<SecurityInfoBase>
     {
         #region Private
-        private List<StatementBase> list;
+        private const string NodeName = "SECLIST";
+        private List<SecurityInfoBase> list;
         #endregion
 
         /************************************************************************/
@@ -28,11 +29,11 @@ namespace Restless.OfxSharper
         public bool IsReadOnly => false;
 
         /// <summary>
-        /// Gets the <see cref="StatementBase"/> object indexed by position.
+        /// Gets the <see cref="SecurityInfoBase"/> object indexed by position.
         /// </summary>
         /// <param name="index">The index position</param>
         /// <returns>The statement</returns>
-        public StatementBase this[int index] 
+        public SecurityInfoBase this[int index] 
         {
             get
             {
@@ -49,32 +50,35 @@ namespace Restless.OfxSharper
 
         #region Constructor (internal)
         /// <summary>
-        /// Initializes a new instance of the <see cref="StatementCollection"/> class.
+        /// Initializes a new instance of the <see cref="SecurityInfoCollection"/> class.
         /// </summary>
         /// <param name="xmlDoc">The xml document</param>
-        internal StatementCollection(XmlDocument xmlDoc)
+        internal SecurityInfoCollection(XmlDocument xmlDoc)
         {
-            list = new List<StatementBase>();
-            XmlNode bankNode = GetNestedNode(xmlDoc.FirstChild, "BANKMSGSRSV1");
-            XmlNode ccNode = GetNestedNode(xmlDoc.FirstChild, "CREDITCARDMSGSRSV1");
-            if (bankNode != null)
-            {
-                foreach (XmlNode childNode in bankNode.ChildNodes)
-                {
-                    if (childNode.Name == StatementBase.BankStatementTransaction)
-                    {
-                        Add(new BankStatement(childNode));
-                    }
-                }
-            }
+            list = new List<SecurityInfoBase>();
+            XmlNode secListNode = GetNestedNode(xmlDoc.FirstChild, NodeName);
 
-            if (ccNode != null)
+            if (secListNode != null)
             {
-                foreach (XmlNode childNode in ccNode.ChildNodes)
+                foreach (XmlNode childNode in secListNode.ChildNodes)
                 {
-                    if (childNode.Name == StatementBase.CreditCardStatementTransaction)
+                    switch (childNode.Name)
                     {
-                        Add(new CreditCardStatement(childNode));
+                        case MutualFundSecurityInfo.NodeName:
+                            Add(new MutualFundSecurityInfo(childNode));
+                            break;
+                        case StockSecurityInfo.NodeName:
+                            Add(new StockSecurityInfo(childNode));
+                            break;
+                        case OptionSecurityInfo.NodeName:
+                            Add(new OptionSecurityInfo(childNode));
+                            break;
+                        case DebtSecurityInfo.NodeName:
+                            Add(new DebtSecurityInfo(childNode));
+                            break;
+                        case OtherSecurityInfo.NodeName:
+                            Add(new OtherSecurityInfo(childNode));
+                            break;
                     }
                 }
             }
@@ -93,7 +97,7 @@ namespace Restless.OfxSharper
         /// Adds an item to the collection.
         /// </summary>
         /// <param name="item">The item to add</param>
-        public void Add(StatementBase item)
+        public void Add(SecurityInfoBase item)
         {
             ValidateNull(item, "Add.Item");
             list.Add(item);
@@ -112,7 +116,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="item">The item to check.</param>
         /// <returns>true if the item exists in the collection; otherwise, false.</returns>
-        public bool Contains(StatementBase item)
+        public bool Contains(SecurityInfoBase item)
         {
             foreach (var listItem in list)
             {
@@ -129,7 +133,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">The array index to begin copying.</param>
-        public void CopyTo(StatementBase[] array, int arrayIndex)
+        public void CopyTo(SecurityInfoBase[] array, int arrayIndex)
         {
             ValidateNull(array, "CopyTo.Array");
             ValidateOfxOperation(arrayIndex < 0, "Index out of bounds");
@@ -144,7 +148,7 @@ namespace Restless.OfxSharper
         /// Gets the enumerator for the collection.
         /// </summary>
         /// <returns>The enumerator</returns>
-        public IEnumerator<StatementBase> GetEnumerator()
+        public IEnumerator<SecurityInfoBase> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -154,7 +158,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="item">The item</param>
         /// <returns>true if the item was removed, false if the item doesn't exist.</returns>
-        public bool Remove(StatementBase item)
+        public bool Remove(SecurityInfoBase item)
         {
             if (Contains(item))
             {

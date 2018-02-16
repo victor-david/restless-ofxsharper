@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Provides enumerated values for the type associated with <see cref="StatementBase"/>.

@@ -1,4 +1,4 @@
-﻿namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Defines an interface bank to use with <see cref="OfxRequestBuilder"/>.

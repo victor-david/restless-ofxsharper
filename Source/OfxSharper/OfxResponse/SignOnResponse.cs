@@ -1,3 +1,4 @@
+using Restless.OfxSharper.Core;
 using System;
 using System.Xml;
 

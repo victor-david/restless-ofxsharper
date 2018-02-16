@@ -1,4 +1,4 @@
-﻿namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Provides static declarations for the Ofx anonymous userid and password.

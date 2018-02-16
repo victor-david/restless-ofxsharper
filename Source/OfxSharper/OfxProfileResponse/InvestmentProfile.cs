@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Restless.OfxSharper.Core;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Profile
 {
     /// <summary>
     /// Represents the investment portion of a financial institution profile.

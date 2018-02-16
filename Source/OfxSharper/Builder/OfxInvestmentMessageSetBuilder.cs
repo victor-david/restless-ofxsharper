@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restless.OfxSharper.Core;
+using System;
 using System.Text;
 
 namespace Restless.OfxSharper.Builder

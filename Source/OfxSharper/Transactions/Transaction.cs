@@ -1,3 +1,5 @@
+using Restless.OfxSharper.Accounts;
+using Restless.OfxSharper.Core;
 using System;
 using System.Globalization;
 using System.Xml;

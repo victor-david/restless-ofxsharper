@@ -1,8 +1,7 @@
 using System;
-using System.Globalization;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Represents a single balance node.

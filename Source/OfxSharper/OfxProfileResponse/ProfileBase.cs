@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Restless.OfxSharper.Core;
+using System;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Profile
 {
     /// <summary>
     /// Represents the base class for profile information for a financial institution.

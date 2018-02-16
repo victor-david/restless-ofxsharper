@@ -1,4 +1,4 @@
-﻿namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Provides an enumeration that describes the status of an account info

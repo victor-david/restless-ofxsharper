@@ -1,7 +1,6 @@
 using System;
-using System.Runtime.Serialization;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Represents an Ofx parsing exception.

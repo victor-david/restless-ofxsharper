@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Represents the OFX header.

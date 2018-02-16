@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Represents the base class for a statement or a closing statement. This class must be inherited.

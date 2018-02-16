@@ -1,4 +1,6 @@
 ﻿using Restless.OfxSharper.Builder;
+using Restless.OfxSharper.Core;
+using Restless.OfxSharper.Profile;
 using Sgml;
 using System;
 using System.IO;

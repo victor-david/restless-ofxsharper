@@ -1,24 +1,18 @@
-﻿using System;
+﻿using Restless.OfxSharper.Core;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Restless.OfxSharper
 {
     /// <summary>
-    /// Represents a collection of <see cref="SecurityInfoBase"/> objects
+    /// Represents a collection of <see cref="SecurityPositionBase"/> objects
     /// </summary>
-    public class SecurityCollection : OfxObjectBase, ICollection<SecurityInfoBase>
+    public class SecurityPositionCollection : OfxObjectBase, ICollection<SecurityPositionBase>
     {
         #region Private
-        private const string SecurityListNode = "SECLIST";
-
-        
-
-        private List<SecurityInfoBase> list;
+        private const string NodeName = "INVPOSLIST";
+        private List<SecurityPositionBase> list;
         #endregion
 
         /************************************************************************/
@@ -39,7 +33,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="index">The index position</param>
         /// <returns>The statement</returns>
-        public SecurityInfoBase this[int index] 
+        public SecurityPositionBase this[int index] 
         {
             get
             {
@@ -56,13 +50,13 @@ namespace Restless.OfxSharper
 
         #region Constructor (internal)
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecurityCollection"/> class.
+        /// Initializes a new instance of the <see cref="SecurityInfoCollection"/> class.
         /// </summary>
         /// <param name="xmlDoc">The xml document</param>
-        internal SecurityCollection(XmlDocument xmlDoc)
+        internal SecurityPositionCollection(XmlDocument xmlDoc)
         {
-            list = new List<SecurityInfoBase>();
-            XmlNode secListNode = GetNestedNode(xmlDoc.FirstChild, SecurityListNode);
+            list = new List<SecurityPositionBase>();
+            XmlNode secListNode = GetNestedNode(xmlDoc.FirstChild, NodeName);
 
             if (secListNode != null)
             {
@@ -70,20 +64,20 @@ namespace Restless.OfxSharper
                 {
                     switch (childNode.Name)
                     {
-                        case MutualFundSecurityInfo.NodeName:
-                            Add(new MutualFundSecurityInfo(childNode));
+                        case MutualFundSecurityPosition.NodeName:
+                            Add(new MutualFundSecurityPosition(childNode));
                             break;
-                        case StockSecurityInfo.NodeName:
-                            Add(new StockSecurityInfo(childNode));
+                        case StockSecurityPosition.NodeName:
+                            Add(new StockSecurityPosition(childNode));
                             break;
-                        case OptionSecurityInfo.NodeName:
-                            Add(new OptionSecurityInfo(childNode));
+                        case OptionSecurityPosition.NodeName:
+                            Add(new OptionSecurityPosition(childNode));
                             break;
-                        case DebtSecurityInfo.NodeName:
-                            Add(new DebtSecurityInfo(childNode));
+                        case DebtSecurityPosition.NodeName:
+                            Add(new DebtSecurityPosition(childNode));
                             break;
-                        case OtherSecurityInfo.NodeName:
-                            Add(new OtherSecurityInfo(childNode));
+                        case OtherSecurityPosition.NodeName:
+                            Add(new OtherSecurityPosition(childNode));
                             break;
                     }
                 }
@@ -103,7 +97,7 @@ namespace Restless.OfxSharper
         /// Adds an item to the collection.
         /// </summary>
         /// <param name="item">The item to add</param>
-        public void Add(SecurityInfoBase item)
+        public void Add(SecurityPositionBase item)
         {
             ValidateNull(item, "Add.Item");
             list.Add(item);
@@ -122,7 +116,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="item">The item to check.</param>
         /// <returns>true if the item exists in the collection; otherwise, false.</returns>
-        public bool Contains(SecurityInfoBase item)
+        public bool Contains(SecurityPositionBase item)
         {
             foreach (var listItem in list)
             {
@@ -139,7 +133,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">The array index to begin copying.</param>
-        public void CopyTo(SecurityInfoBase[] array, int arrayIndex)
+        public void CopyTo(SecurityPositionBase[] array, int arrayIndex)
         {
             ValidateNull(array, "CopyTo.Array");
             ValidateOfxOperation(arrayIndex < 0, "Index out of bounds");
@@ -154,7 +148,7 @@ namespace Restless.OfxSharper
         /// Gets the enumerator for the collection.
         /// </summary>
         /// <returns>The enumerator</returns>
-        public IEnumerator<SecurityInfoBase> GetEnumerator()
+        public IEnumerator<SecurityPositionBase> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -164,7 +158,7 @@ namespace Restless.OfxSharper
         /// </summary>
         /// <param name="item">The item</param>
         /// <returns>true if the item was removed, false if the item doesn't exist.</returns>
-        public bool Remove(SecurityInfoBase item)
+        public bool Remove(SecurityPositionBase item)
         {
             if (Contains(item))
             {

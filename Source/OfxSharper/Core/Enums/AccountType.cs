@@ -1,4 +1,4 @@
-﻿namespace Restless.OfxSharper
+﻿namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Describes the supported type of financial institution accounts.

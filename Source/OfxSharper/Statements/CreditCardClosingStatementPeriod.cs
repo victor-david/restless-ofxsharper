@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Restless.OfxSharper.Core;
+using System;
 using System.Xml;
 
 namespace Restless.OfxSharper

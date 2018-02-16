@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Provides enumerated values for <see cref="Transaction.TransType"/>

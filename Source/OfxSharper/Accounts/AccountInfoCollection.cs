@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Restless.OfxSharper.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Accounts
 {
     /// <summary>
     /// Represents a collection of <see cref="AccountInfo"/> objects

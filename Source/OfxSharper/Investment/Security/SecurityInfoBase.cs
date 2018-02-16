@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restless.OfxSharper.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -106,16 +107,16 @@ namespace Restless.OfxSharper
 
         /************************************************************************/
 
-        #region Constructor (protected)
+        #region Constructor (internal)
         /// <summary>
         /// Initializes a new instance of the <see cref="SecurityInfoBase"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        protected SecurityInfoBase(XmlNode rootNode)
+        internal SecurityInfoBase(XmlNode rootNode)
         {
             if (rootNode != null)
             {
-                Id = new SecurityId(GetNestedNode(rootNode, SecurityId.SecurityIdNode));
+                Id = new SecurityId(GetNestedNode(rootNode, SecurityId.NodeName));
                 Name = GetNodeValue(rootNode, nameof(Name));
                 Ticker = GetNodeValue(rootNode, nameof(Ticker));
                 FinancialId = GetNodeValue(rootNode, nameof(FinancialId));

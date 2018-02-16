@@ -1,5 +1,5 @@
-using System;
-using System.Collections.Generic;
+using Restless.OfxSharper.Accounts;
+using Restless.OfxSharper.Core;
 using System.Xml;
 
 namespace Restless.OfxSharper
@@ -38,13 +38,14 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// Gets the list of securities for thos Ofx response, if applicable.
+        /// Gets the top level investment container object.
         /// </summary>
-        public SecurityCollection Securities
+        public InvestmentContainer Investments
         {
             get;
             private set;
         }
+
         #endregion
 
         /************************************************************************/
@@ -60,7 +61,7 @@ namespace Restless.OfxSharper
             Statements = new StatementCollection(xmlDoc);
             Payees = new PayeeCollection(xmlDoc);
             AccountInfo = new AccountInfoCollection(xmlDoc);
-            Securities = new SecurityCollection(xmlDoc);
+            Investments = new InvestmentContainer(xmlDoc);
         }
         #endregion
 

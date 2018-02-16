@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Restless.OfxSharper.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Profile
 {
     /// <summary>
     /// Extends <see cref="AccountProfile"/> to provide data that represents a bank account profile.

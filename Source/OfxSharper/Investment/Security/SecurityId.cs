@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Restless.OfxSharper.Core;
 using System.Xml;
 
 namespace Restless.OfxSharper
@@ -16,7 +12,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// Identifies the node that holds the security id aggregate.
         /// </summary>
-        internal const string SecurityIdNode = "SECID";
+        internal const string NodeName = "SECID";
         #endregion
 
         /************************************************************************/

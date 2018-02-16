@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Core
 {
     /// <summary>
     /// Represents the status aggregate.
