@@ -20,7 +20,7 @@ public void OfxProfileExample()
     // You need to get your own bank details into an IBank object.
     IBank bank = GetMyBankInfo();
 
-    var builder = OfxFactory.CreateBuilder();
+    var builder = OfxFactory.Builder.Create();
 
     builder.BuildOfxRequest(() =>
     {
@@ -31,11 +31,10 @@ public void OfxProfileExample()
     // Send request to the bank and get the response
     string response = GetResponseFromBank(builder.RequestText);
     // Transform response string. Ready to go.
-    OfxProfileResponse profile = OfxFactory.CreateProfileResponse(response);
+    OfxProfileResponse profile = OfxFactory.ProfileResponse.Create(response);
     // Do something.
     if (profile.BillPay.CanAddPayee)
     {
-
     }
 }
 ```
@@ -50,7 +49,7 @@ public void BankStatementDownload()
     // You need to get your own account details into an IAccount object.
     IAccount account = GetMyAccountInfo();
 
-    OfxRequestBuilder builder = OfxFactory.CreateBuilder();
+    OfxRequestBuilder builder = OfxFactory.Builder.Create();
     builder.BuildOfxRequest(() =>
     {
         builder.Signon.BuildMessageSet(bank);
@@ -58,7 +57,7 @@ public void BankStatementDownload()
         builder.Bank.BuildMessageSet(() =>
         {
             // in your app, you'd have to determine an appropiate date to start with.
-            DateTime fromDate = new DateTime(2017, 1, 1);
+            DateTime fromDate = new DateTime(2018, 1, 1);
             builder.Bank.BuildStatementRequest(account, fromDate, null, true);
             // add another statement request if you've got another account at the same bank
         });
@@ -68,7 +67,7 @@ public void BankStatementDownload()
     string response = GetResponseFromBank(builder.RequestText);
 
     // Transform response string. Ready to go.
-    OfxResponse ofx = OfxFactory.CreateResponse(response);
+    OfxResponse ofx = OfxFactory.Response.Create(response);
 }
 ```
 
@@ -82,7 +81,7 @@ public void CreditCardStatementDownload()
     // You need to get your own account details into an IAccount object.
     IAccount account = GetMyAccountInfo();
 
-    OfxRequestBuilder builder = OfxFactory.CreateBuilder();
+    OfxRequestBuilder builder = OfxFactory.Builder.Create();
     builder.BuildOfxRequest(() =>
     {
         builder.Signon.BuildMessageSet(bank);
@@ -90,9 +89,9 @@ public void CreditCardStatementDownload()
         builder.CreditCard.BuildMessageSet(() =>
         {
             // in your app, you'd have to determine an appropiate date to start with
-            DateTime dateStart = new DateTime(2017, 1, 1);
+            DateTime dateStart = new DateTime(2018, 1, 1);
             builder.CreditCard.BuildStatementRequest(account, dateStart, null, true);
-            // Not using a start date or and end date. Bank will deliver whatever they've got.
+            // Not using a start date or an end date. Bank will deliver whatever they've got.
             builder.CreditCard.BuildClosingStatementRequest(account, null, null);
         });
     });
@@ -101,10 +100,10 @@ public void CreditCardStatementDownload()
     string response = GetResponseFromBank(builder.RequestText);
 
     // Transform response string. Ready to go.
-    OfxResponse ofx = OfxFactory.CreateResponse(response);
-    if (ofx.Statements.Count == 1)
+    OfxResponse ofx = OfxFactory.Response.Create(response);
+    if (ofx.Bank.Statements.Count == 1)
     {
-        foreach (var closingPeriod in ((CreditCardStatement)ofx.Statements[0]).Closing.Periods)
+        foreach (var closingPeriod in ((CreditCardStatement)ofx.Bank.Statements[0]).Closing.Periods)
         {
             // do something
         }
@@ -123,7 +122,7 @@ public void BankAndCreditCardStatementDownload()
     IAccount bankAccount = GetMyAccountInfo();
     IAccount creditCardAccount = GetMyAccountInfo();
 
-    OfxRequestBuilder builder = OfxFactory.CreateBuilder();
+    OfxRequestBuilder builder = OfxFactory.Builder.Create();
     builder.BuildOfxRequest(() =>
     {
         builder.Signon.BuildMessageSet(bank);
@@ -131,16 +130,16 @@ public void BankAndCreditCardStatementDownload()
         builder.Bank.BuildMessageSet(() =>
         {
             // in your app, you'd have to determine an appropiate date to start with.
-            DateTime fromDate = new DateTime(2017, 1, 1);
+            DateTime fromDate = new DateTime(2018, 1, 1);
             builder.Bank.BuildStatementRequest(bankAccount, fromDate, null, true);
         });
 
         builder.CreditCard.BuildMessageSet(() =>
         {
             // in your app, you'd have to determine an appropiate date to start with
-            DateTime dateStart = new DateTime(2017, 1, 1);
+            DateTime dateStart = new DateTime(2018, 1, 1);
             builder.CreditCard.BuildStatementRequest(creditCardAccount, dateStart, null, true);
-            // Not using a start date or and end date. Bank will deliver whatever they've got.
+            // Not using a start date or an end date. Bank will deliver whatever they've got.
             builder.CreditCard.BuildClosingStatementRequest(creditCardAccount, null, null);
         });
     });
@@ -149,8 +148,8 @@ public void BankAndCreditCardStatementDownload()
     string response = GetResponseFromBank(builder.RequestText);
 
     // Transform response string. Ready to go.
-    OfxResponse ofx = OfxFactory.CreateResponse(response);
-    foreach (var statement in ofx.Statements)
+    OfxResponse ofx = OfxFactory.Response.Create(response);
+    foreach (var statement in ofx.Bank.Statements)
     {
         if (statement.StatementType == StatementType.Bank)
         {
