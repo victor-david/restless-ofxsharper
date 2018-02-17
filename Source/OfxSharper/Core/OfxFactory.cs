@@ -17,30 +17,62 @@ namespace Restless.OfxSharper
     {
         #region Public methods (OfxResponse)
         /// <summary>
-        /// Creates a <see cref="OfxResponse"/> object from the specified Ofx response string.
+        /// Provides methods to create <see cref="OfxResponse"/> objects.
         /// </summary>
-        /// <param name="inputStr">The input string.</param>
-        /// <returns>An OfxResponse object.</returns>
-        public static OfxResponse CreateResponse(string inputStr)
+        public static class Response
         {
-            OfxHeader header = new OfxHeader(inputStr);
-            string xmlStr = SgmlToXml(inputStr.Substring(header.HeaderEnd));
-            var doc = new XmlDocument();
-            doc.Load(new StringReader(xmlStr));
-            OfxResponse ofxResponse = new OfxResponse(header, doc);
-            return ofxResponse;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="OfxResponse"/> object from the specified file stream.
-        /// </summary>
-        /// <param name="stream">The file stream.</param>
-        /// <returns>An OfxResponse object.</returns>
-        public static OfxResponse CreateResponse(FileStream stream)
-        {
-            using (var reader = new StreamReader(stream, Encoding.Default))
+            /// <summary>
+            /// Creates a <see cref="OfxResponse"/> object from the specified Ofx response string.
+            /// </summary>
+            /// <param name="inputStr">The input string.</param>
+            /// <param name="messageSetVersion">The message set version to use.</param>
+            /// <returns>An OfxResponse object.</returns>
+            public static OfxResponse Create(string inputStr, int messageSetVersion)
             {
-                return CreateResponse(reader.ReadToEnd());
+                OfxHeader header = new OfxHeader(inputStr);
+                string xmlStr = SgmlToXml(inputStr.Substring(header.HeaderEnd));
+                var doc = new XmlDocument();
+                doc.Load(new StringReader(xmlStr));
+                OfxResponse ofxResponse = new OfxResponse(header, doc, messageSetVersion);
+                return ofxResponse;
+            }
+
+            /// <summary>
+            /// Creates a <see cref="OfxResponse"/> object from the specified Ofx response string.
+            /// Uses <see cref="MessageSetBase.DefaultMessageSetVersion"/>.
+            /// </summary>
+            /// <param name="inputStr">The input string.</param>
+            /// <returns>An OfxResponse object.</returns>
+            public static OfxResponse Create(string inputStr)
+            {
+                return Create(inputStr, OfxMessageSetBase1.DefaultMessageSetVersion);
+            }
+
+
+            /// <summary>
+            /// Creates a <see cref="OfxResponse"/> object from the specified file stream.
+            /// </summary>
+            /// <param name="stream">The file stream.</param>
+            /// <param name="messageSetVersion">The message set version to use.</param>
+            /// <returns>An OfxResponse object.</returns>
+            public static OfxResponse Create(FileStream stream, int messageSetVersion)
+            {
+                using (var reader = new StreamReader(stream, Encoding.Default))
+                {
+                    return Create(reader.ReadToEnd(), messageSetVersion);
+                }
+            }
+
+            /// <summary>
+            /// Creates a <see cref="OfxResponse"/> object from the specified file stream.
+            /// Uses <see cref="MessageSetBase.DefaultMessageSetVersion"/>.
+            /// </summary>
+            /// <param name="stream">The file stream.</param>
+            /// <param name="messageSetVersion">The message set version to use.</param>
+            /// <returns>An OfxResponse object.</returns>
+            public static OfxResponse Create(FileStream stream)
+            {
+                return Create(stream, OfxMessageSetBase1.DefaultMessageSetVersion);
             }
         }
         #endregion
@@ -49,30 +81,36 @@ namespace Restless.OfxSharper
 
         #region Public methods (OfxProfileResponse)
         /// <summary>
-        /// Creates a <see cref="OfxProfileResponse"/> object from the specified Ofx response string.
+        /// Provides methods to create <see cref="OfxProfileResponse"/> objects.
         /// </summary>
-        /// <param name="inputStr">The input string.</param>
-        /// <returns>An OfxProfileResponse object.</returns>
-        public static OfxProfileResponse CreateProfileResponse(string inputStr)
+        public static class ProfileResponse
         {
-            OfxHeader header = new OfxHeader(inputStr);
-            string xmlStr = SgmlToXml(inputStr.Substring(header.HeaderEnd));
-            var doc = new XmlDocument();
-            doc.Load(new StringReader(xmlStr));
-            OfxProfileResponse ofxProfileResponse = new OfxProfileResponse(header, doc);
-            return ofxProfileResponse;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="OfxProfileResponse"/> object from the specified file stream.
-        /// </summary>
-        /// <param name="stream">The file stream.</param>
-        /// <returns>An OfxProfileResponse object.</returns>
-        public static OfxProfileResponse CreateProfileResponse(FileStream stream)
-        {
-            using (var reader = new StreamReader(stream, Encoding.Default))
+            /// <summary>
+            /// Creates a <see cref="OfxProfileResponse"/> object from the specified Ofx response string.
+            /// </summary>
+            /// <param name="inputStr">The input string.</param>
+            /// <returns>An OfxProfileResponse object.</returns>
+            public static OfxProfileResponse Create(string inputStr)
             {
-                return CreateProfileResponse(reader.ReadToEnd());
+                OfxHeader header = new OfxHeader(inputStr);
+                string xmlStr = SgmlToXml(inputStr.Substring(header.HeaderEnd));
+                var doc = new XmlDocument();
+                doc.Load(new StringReader(xmlStr));
+                OfxProfileResponse ofxProfileResponse = new OfxProfileResponse(header, doc);
+                return ofxProfileResponse;
+            }
+
+            /// <summary>
+            /// Creates a <see cref="OfxProfileResponse"/> object from the specified file stream.
+            /// </summary>
+            /// <param name="stream">The file stream.</param>
+            /// <returns>An OfxProfileResponse object.</returns>
+            public static OfxProfileResponse Create(FileStream stream)
+            {
+                using (var reader = new StreamReader(stream, Encoding.Default))
+                {
+                    return Create(reader.ReadToEnd());
+                }
             }
         }
         #endregion
@@ -81,12 +119,28 @@ namespace Restless.OfxSharper
 
         #region Public methods (OfxRequestBuilder)
         /// <summary>
-        /// Creates an <see cref="OfxRequestBuilder"/> object.
+        /// Provides methods to create <see cref="OfxRequestBuilder"/> objects.
         /// </summary>
-        /// <returns>An OfxRequestBuilder object.</returns>
-        public static OfxRequestBuilder CreateBuilder()
+        public static class Builder
         {
-            return new OfxRequestBuilder();
+            /// <summary>
+            /// Creates an <see cref="OfxRequestBuilder"/> object.
+            /// </summary>
+            /// <param name="messageSetVersion">The message set version to use.</param>
+            /// <returns>An OfxRequestBuilder object.</returns>
+            public static OfxRequestBuilder Create(int messageSetVersion)
+            {
+                return new OfxRequestBuilder(messageSetVersion);
+            }
+
+            /// <summary>
+            /// Creates an <see cref="OfxRequestBuilder"/> object.
+            /// </summary>
+            /// <returns>An OfxRequestBuilder object.</returns>
+            public static OfxRequestBuilder Create()
+            {
+                return Create(OfxMessageSetBuilderBase.DefaultMessageSetVersion);
+            }
         }
         #endregion
 

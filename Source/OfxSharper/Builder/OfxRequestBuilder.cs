@@ -118,17 +118,17 @@ namespace Restless.OfxSharper.Builder
         /// <summary>
         /// Initializes a new instance of the <see cref="OfxRequestBuilder"/> class.
         /// </summary>
-        internal OfxRequestBuilder()
+        internal OfxRequestBuilder(int messageSetVersion)
         {
             builder = new StringBuilder(1024);
-            Bank = new OfxBankMessageSetBuilder(builder);
-            BillPay = new OfxBillPayMessageSetBuilder(builder);
-            CreditCard = new OfxCreditCardMessageSetBuilder(builder);
-            Email = new OfxEmailMessageSetBuilder(builder);
-            Investment = new OfxInvestmentMessageSetBuilder(builder);
-            Profile = new OfxProfileMessageSetBuilder(builder);
-            Signon = new OfxSignonMessageSetBuilder(builder);
-            Signup = new OfxSignupMessageSetBuilder(builder);
+            Bank = new OfxBankMessageSetBuilder(builder, messageSetVersion);
+            BillPay = new OfxBillPayMessageSetBuilder(builder, messageSetVersion);
+            CreditCard = new OfxCreditCardMessageSetBuilder(builder, messageSetVersion);
+            Email = new OfxEmailMessageSetBuilder(builder, messageSetVersion);
+            Investment = new OfxInvestmentMessageSetBuilder(builder, messageSetVersion);
+            Profile = new OfxProfileMessageSetBuilder(builder, messageSetVersion);
+            Signon = new OfxSignonMessageSetBuilder(builder, messageSetVersion);
+            Signup = new OfxSignupMessageSetBuilder(builder, messageSetVersion);
         }
         #endregion
 

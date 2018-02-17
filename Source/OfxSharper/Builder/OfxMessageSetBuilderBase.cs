@@ -8,72 +8,24 @@ namespace Restless.OfxSharper.Builder
     /// <summary>
     /// Represents the base class for a builder component defined by its message set. This class must be inherited.
     /// </summary>
-    public abstract class OfxMessageSetBuilderBase : OfxObjectBase
+    public abstract class OfxMessageSetBuilderBase : OfxMessageSetBase1
     {
         #region Private
-        private int messageSetVersion;
         #endregion
 
         /************************************************************************/
 
         #region Public fields
-        /// <summary>
-        /// Gets the minimum message set version supported.
-        /// </summary>
-        public const int MinMessageSetVersion = 1;
-
-        /// <summary>
-        /// Gets the maximum message set version supported.
-        /// </summary>
-        public const int MaxMessageSetVersion = 2;
-
-        /// <summary>
-        /// Gets the default message set version.
-        /// </summary>
-        public const int DefaultMessageSetVersion = 1;
-
         #endregion
 
         /************************************************************************/
 
         #region Public properties
-        /// <summary>
-        /// Version to use for the message set. Default is <see cref="DefaultMessageSetVersion"/>.
-        /// </summary>
-        /// <remarks>
-        /// When you set this property, the value is clamped between <see cref="MinMessageSetVersion"/> 
-        /// and <see cref="MaxMessageSetVersion"/>.
-        /// </remarks>
-        public int MessageSetVersion
-        {
-            get => messageSetVersion;
-            set => messageSetVersion = Math.Min(Math.Max(value, MinMessageSetVersion), MaxMessageSetVersion);
-        }
         #endregion
 
         /************************************************************************/
 
         #region Protected properties
-        /// <summary>
-        /// When implemented in a derived class, gets the message set name.
-        /// Do not hard code the message set version in the name.
-        /// Ex: get=> $"BANKMSGSRQV{MessageSetVersion}";
-        /// </summary>
-        /// <remarks>
-        /// When this property is implemented in a derived class, it must return
-        /// the message set name with the specified version attached. Example:
-        /// <code>
-        /// protected override string MessageSetName
-        /// {
-        ///    get => $"BANKMSGSRQV{MessageSetVersion}";
-        /// }
-        /// </code>
-        /// </remarks>
-        protected abstract string MessageSetName
-        {
-            get;
-        }
-
         /// <summary>
         /// From a derived class gets the builder object.
         /// </summary>
@@ -90,11 +42,11 @@ namespace Restless.OfxSharper.Builder
         /// <summary>
         /// Initializes a new instance of the <see cref="OfxMessageSetBuilderBase"/> class.
         /// </summary>
-        internal OfxMessageSetBuilderBase(StringBuilder builder)
+        /// <param name="messageSetVersion">The message set version to use.</param>
+        internal OfxMessageSetBuilderBase(StringBuilder builder, int messageSetVersion) : base(messageSetVersion)
         {
             ValidateNull(builder, nameof(builder));
             Builder = builder;
-            MessageSetVersion = DefaultMessageSetVersion;
         }
         #endregion
 
@@ -129,7 +81,7 @@ namespace Restless.OfxSharper.Builder
         /// </summary>
         protected void StartMessageSet()
         {
-            Builder.AppendLine($"<{MessageSetName}>");
+            Builder.AppendLine($"<{MessageSetName1}>");
         }
 
         /// <summary>
@@ -137,7 +89,7 @@ namespace Restless.OfxSharper.Builder
         /// </summary>
         protected void EndMessageSet()
         {
-            Builder.AppendLine($"</{MessageSetName}>");
+            Builder.AppendLine($"</{MessageSetName1}>");
         }
 
         /// <summary>

@@ -92,16 +92,19 @@ namespace Restless.OfxSharper.Core
         /// <returns>The nested node, or null if not found.</returns>
         protected XmlNode GetNestedNode(XmlNode searchNode, string name)
         {
-            if (searchNode.Name == name)
+            if (searchNode != null && !String.IsNullOrEmpty(name))
             {
-                return searchNode;
-            }
-            foreach (XmlNode node in searchNode.ChildNodes)
-            {
-                XmlNode retNode = GetNestedNode(node, name);
-                if (retNode != null)
+                if (searchNode.Name == name)
                 {
-                    return retNode;
+                    return searchNode;
+                }
+                foreach (XmlNode node in searchNode.ChildNodes)
+                {
+                    XmlNode retNode = GetNestedNode(node, name);
+                    if (retNode != null)
+                    {
+                        return retNode;
+                    }
                 }
             }
             return null;
@@ -115,12 +118,15 @@ namespace Restless.OfxSharper.Core
         /// <returns>The nested node, or null if not found.</returns>
         protected XmlNode GetNestedNode(XmlNodeList searchNodes, string name)
         {
-            foreach (XmlNode node in searchNodes)
+            if (searchNodes != null)
             {
-                XmlNode retNode = GetNestedNode(node, name);
-                if (retNode != null)
+                foreach (XmlNode node in searchNodes)
                 {
-                    return retNode;
+                    XmlNode retNode = GetNestedNode(node, name);
+                    if (retNode != null)
+                    {
+                        return retNode;
+                    }
                 }
             }
             return null;

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restless.OfxSharper.Core
+﻿namespace Restless.OfxSharper.Core
 {
     /// <summary>
-    /// Provides enumerated values for the type associated with <see cref="StatementBase"/>.
+    /// Provides enumerated values for the type associated with <see cref="CommonStatementBase"/>.
     /// </summary>
     public enum StatementType
     {
@@ -16,12 +10,17 @@ namespace Restless.OfxSharper.Core
         /// </summary>
         Unspecified = 0,
         /// <summary>
-        /// A bank statement.
+        /// A bank account (checking, savings) statement.
         /// </summary>
         Bank = 1,
         /// <summary>
-        /// A credit card statement.
+        /// A credit card account statement.
         /// </summary>
-        CreditCard = 2
+        CreditCard = 2,
+        /// <summary>
+        /// An investment account statement.
+        /// </summary>
+        Investment = 3,
+
     }
 }

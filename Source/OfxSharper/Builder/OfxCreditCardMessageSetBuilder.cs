@@ -13,7 +13,7 @@ namespace Restless.OfxSharper.Builder
         /// <summary>
         /// Gets the name of the message set that this builder uses.
         /// </summary>
-        protected override string MessageSetName
+        protected override string MessageSetName1
         {
             get => $"CREDITCARDMSGSRQV{MessageSetVersion}";
         }
@@ -26,7 +26,8 @@ namespace Restless.OfxSharper.Builder
         /// Initializes a new instance of the <see cref="OfxCreditCardMessageSetBuilder"/> class.
         /// </summary>
         /// <param name="builder">The builder object.</param>
-        internal OfxCreditCardMessageSetBuilder(StringBuilder builder) : base(builder)
+        /// <param name="messageSetVersion">The message set version to use.</param>
+        internal OfxCreditCardMessageSetBuilder(StringBuilder builder, int messageSetVersion) : base(builder, messageSetVersion)
         {
 
         }
