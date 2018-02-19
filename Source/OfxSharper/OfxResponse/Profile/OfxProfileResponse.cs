@@ -13,7 +13,7 @@ namespace Restless.OfxSharper.Profile
         /// <summary>
         /// DTPROFUP. Date / time profile was updated on server, datetime.
         /// </summary>
-        [NodeInfo("DTPROFUP")]
+        [NodeInfo("DTPROFUP", Required = true)]
         public DateTime ProfileDate
         {
             get;
@@ -131,7 +131,7 @@ namespace Restless.OfxSharper.Profile
         /// <param name="xmlDoc">The Xml document</param>
         public OfxProfileResponse(OfxHeader header, XmlDocument xmlDoc) : base(header, xmlDoc)
         {
-            ProfileDate = GetDateTimeValue(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(ProfileDate))));
+            ProfileDate = GetDateTimeValue(xmlDoc.FirstChild, nameof(ProfileDate));
             Bank = new BankAccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(Bank))));
             BillPay = new BillPayProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(BillPay))));
             CreditCard = new AccountProfile(GetNestedNode(xmlDoc.FirstChild, GetNodeName(nameof(CreditCard))));

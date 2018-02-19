@@ -1,5 +1,6 @@
-using Restless.OfxSharper.Accounts;
+using Restless.OfxSharper.Account;
 using Restless.OfxSharper.Core;
+using Restless.OfxSharper.Statement;
 using System;
 using System.Globalization;
 using System.Xml;
@@ -178,21 +179,31 @@ namespace Restless.OfxSharper
         /// <summary>
         /// BANKACCTTO or CCACCTTO. If this was a transfer to an account and the account information is available, see section 11.3.1
         /// </summary>
-        public AccountBase ToAccount
+        public BankAccountBase ToAccount
         {
             get;
             private set;
         }
 
+        ///// <summary>
+        ///// Gets CURRENCY or ORIGCURRENCY or the default.
+        ///// </summary>
+        //[NodeInfo("CURRENCY")]
+        //public string Currency
+        //{
+        //    get;
+        //    private set;
+        //}
+
         /// <summary>
-        /// Gets CURRENCY or ORIGCURRENCY or the default.
+        /// Gets the currency aggregate which describes the currency symbol, the rate, and the source.
         /// </summary>
-        [NodeInfo("CURRENCY")]
-        public string Currency
+        public CurrencyAggregate Currency
         {
             get;
             private set;
         }
+
 
         /// <summary>
         /// Gets or sets a boolean value that may be used by downstream processing.
@@ -211,9 +222,13 @@ namespace Restless.OfxSharper
         /// Initializes a new instance of the <see cref="Transaction"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        /// <param name="defaultCurrency">The currency</param>
-        internal Transaction(XmlNode rootNode, string defaultCurrency)
+        /// <param name="owner">The statement that owns this transaction.</param>
+        internal Transaction(XmlNode rootNode, CommonStatementBase owner)
         {
+            // Null values here indicate programmer error.
+            ValidateNull(rootNode, nameof(rootNode));
+            ValidateNull(owner, nameof(owner));
+
             TransType = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(TransType)))).ToOfxTransactionType();
             DatePosted = GetDateTimeValue(rootNode, nameof(DatePosted));
             DateInitiated = GetNullableDateTimeValue(rootNode, nameof(DateInitiated));
@@ -254,15 +269,17 @@ namespace Restless.OfxSharper
                 Payee = new Payee(payeeNode);
             }
 
-            Currency = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Currency))));
-            if (String.IsNullOrEmpty(Currency))
-            {
-                Currency = GetNodeValue(GetNestedNode(rootNode, "ORIGCURRENCY"));
-                if (String.IsNullOrEmpty(Currency))
-                {
-                    Currency = defaultCurrency;
-                }
-            }
+            Currency = new CurrencyAggregate(rootNode, owner);
+
+            //Currency = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Currency))));
+            //if (String.IsNullOrEmpty(Currency))
+            //{
+            //    Currency = GetNodeValue(GetNestedNode(rootNode, "ORIGCURRENCY"));
+            //    if (String.IsNullOrEmpty(Currency))
+            //    {
+            //        Currency = defaultCurrency;
+            //    }
+            //}
 
             XmlNode bankToNode = GetNestedNode(rootNode, "BANKACCTTO");
             XmlNode ccToNode = GetNestedNode(rootNode, "CCACCTTO");

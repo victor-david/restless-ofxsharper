@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Account
 {
     /// <summary>
     /// Represents a collection of <see cref="Payee"/> objects

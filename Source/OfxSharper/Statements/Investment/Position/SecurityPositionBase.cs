@@ -88,7 +88,15 @@ namespace Restless.OfxSharper.Statement
             private set;
         }
 
-        // TODO Currency
+
+        /// <summary>
+        /// Gets the currency aggregate which describes the currency symbol, the rate, and the source.
+        /// </summary>
+        public CurrencyAggregate Currency
+        {
+            get;
+            private set;
+        }
         #endregion
 
         /************************************************************************/
@@ -98,18 +106,22 @@ namespace Restless.OfxSharper.Statement
         /// Initializes a new instance of the <see cref="SecurityPositionBase"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        internal SecurityPositionBase(XmlNode rootNode)
+        /// <param name="defaultCurrency">The default currency.</param>
+        /// <param name="owner">The statement that owns this position.</param>
+        internal SecurityPositionBase(XmlNode rootNode, CommonStatementBase owner)
         {
-            if (rootNode != null)
-            {
-                Id = new SecurityId(GetNestedNode(rootNode, SecurityId.NodeName));
-                HeldInAccount = GetNodeValue(rootNode, nameof(HeldInAccount));
-                PositionType = GetNodeValue(rootNode, nameof(PositionType));
-                Units = GetDecimalValue(rootNode, nameof(Units));
-                UnitPrice = GetDecimalValue(rootNode, nameof(UnitPrice));
-                MarketValue = GetDecimalValue(rootNode, nameof(MarketValue));
-                DateAsOf = GetNullableDateTimeValue(rootNode, nameof(DateAsOf));
-            }
+            // Null values here indicate programmer error.
+            ValidateNull(rootNode, nameof(rootNode));
+            ValidateNull(owner, nameof(owner));
+
+            Id = new SecurityId(GetNestedNode(rootNode, SecurityId.NodeName));
+            HeldInAccount = GetNodeValue(rootNode, nameof(HeldInAccount));
+            PositionType = GetNodeValue(rootNode, nameof(PositionType));
+            Units = GetDecimalValue(rootNode, nameof(Units));
+            UnitPrice = GetDecimalValue(rootNode, nameof(UnitPrice));
+            MarketValue = GetDecimalValue(rootNode, nameof(MarketValue));
+            DateAsOf = GetNullableDateTimeValue(rootNode, nameof(DateAsOf));
+            Currency = new CurrencyAggregate(rootNode, owner);
         }
         #endregion
     }

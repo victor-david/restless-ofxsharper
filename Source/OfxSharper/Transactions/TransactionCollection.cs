@@ -1,4 +1,5 @@
 ﻿using Restless.OfxSharper.Core;
+using Restless.OfxSharper.Statement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,7 +58,8 @@ namespace Restless.OfxSharper
         /// Initializes a new instance of the <see cref="TransactionCollection"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        internal TransactionCollection(XmlNode rootNode, string defaultCurrency)
+        /// <param name="owner">The statement that owns this collection.</param>
+        internal TransactionCollection(XmlNode rootNode, CommonStatementBase owner)
         {
             list = new List<Transaction>();
             if (rootNode != null)
@@ -69,7 +71,7 @@ namespace Restless.OfxSharper
                 {
                     if (node.Name == "STMTTRN")
                     {
-                        Add(new Transaction(node, defaultCurrency));
+                        Add(new Transaction(node, owner));
                     }
                 }
 

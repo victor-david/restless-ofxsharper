@@ -1,7 +1,7 @@
 ﻿using Restless.OfxSharper.Core;
 using System.Xml;
 
-namespace Restless.OfxSharper.Accounts
+namespace Restless.OfxSharper.Account
 {
     /// <summary>
     /// Represents the base class for an account. This class must be inherited.
@@ -26,23 +26,13 @@ namespace Restless.OfxSharper.Accounts
             get;
             private set;
         }
-
-        /// <summary>
-        /// ACCTKEY. Checksum for international banks, A-22
-        /// </summary>
-        [NodeInfo("ACCTKEY")]
-        public string AccountKey
-        {
-            get;
-            private set;
-        }
         #endregion
 
         /************************************************************************/
 
         #region Constructor (internal)
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountBase"/> class.
+        /// Initializes a new instance of the <see cref="BankAccountBase"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
         protected AccountBase(XmlNode rootNode)
@@ -50,7 +40,6 @@ namespace Restless.OfxSharper.Accounts
             if (rootNode != null)
             {
                 AccountId = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(AccountId))));
-                AccountKey = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(AccountKey))));
             }
         }
         #endregion

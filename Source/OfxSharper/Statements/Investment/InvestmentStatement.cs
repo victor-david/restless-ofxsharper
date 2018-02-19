@@ -1,4 +1,5 @@
-﻿using Restless.OfxSharper.Core;
+﻿using Restless.OfxSharper.Account;
+using Restless.OfxSharper.Core;
 using System;
 using System.Xml;
 
@@ -20,6 +21,15 @@ namespace Restless.OfxSharper.Statement
         /// Gets the statement type. Always returns <see cref="StatementType.Investment"/>.
         /// </summary>
         public override StatementType StatementType => StatementType.Investment;
+
+        /// <summary>
+        /// Gets the account associated with this statement.
+        /// </summary>
+        public InvestmentAccount Account
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// DTASOF. As of date & time for the statement download.
@@ -59,11 +69,11 @@ namespace Restless.OfxSharper.Statement
         /// <param name="rootNode">The root node from which to find data for this class.</param>
         internal InvestmentStatement(XmlNode rootNode) : base(rootNode)
         {
-            Positions = new SecurityPositionCollection(GetNestedNode(rootNode, GetNodeName(nameof(Positions))));
-            if (rootNode != null)
-            {
-                DateAsOf = GetDateTimeValue(rootNode, nameof(DateAsOf));
-            }
+            // Null values here indicate programmer error.
+            ValidateNull(rootNode, nameof(rootNode));
+            Account = new InvestmentAccount(rootNode);
+            DateAsOf = GetDateTimeValue(rootNode, nameof(DateAsOf));
+            Positions = new SecurityPositionCollection(GetNestedNode(rootNode, GetNodeName(nameof(Positions))), this);
         }
         #endregion
 
@@ -72,6 +82,9 @@ namespace Restless.OfxSharper.Statement
         #region Private methods
         private Decimal GetTotalMarketValue()
         {
+            // TODO. It's possible that a position's currency is not the same 
+            // as the statement's default currency (this.DefaultCurrency).
+            // would need to convert.
             Decimal total = 0;
             foreach (var pos in Positions)
             {

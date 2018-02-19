@@ -76,7 +76,7 @@ namespace Restless.OfxSharper.Statement
                 EndDate = GetDateTimeValue(rootNode, nameof(EndDate));
                 Ledger = new Balance(GetNestedNode(rootNode, GetNodeName(nameof(Ledger))));
                 Available = new Balance(GetNestedNode(rootNode, GetNodeName(nameof(Available))));
-                Transactions = new TransactionCollection(GetNestedNode(rootNode, GetNodeName(nameof(Transactions))), DefaultCurrency);
+                Transactions = new TransactionCollection(GetNestedNode(rootNode, GetNodeName(nameof(Transactions))), this);
             }
         }
         #endregion

@@ -23,7 +23,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// DTACCTUP. Date and time of last update to account information (see Chapter 8), datetime
         /// </summary>
-        [NodeInfo("DTACCTUP")]
+        [NodeInfo("DTACCTUP", Required = false)]
         public DateTime? AccountUpdate
         {
             get;
@@ -55,7 +55,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// DTPROFUP. Date and time of last update to profile information for any service supported by this FI (see Chapter 7), datetime
         /// </summary>
-        [NodeInfo("DTPROFUP")]
+        [NodeInfo("DTPROFUP", Required = false)]
         public DateTime? ProfileDate
         {
             get;
@@ -65,7 +65,7 @@ namespace Restless.OfxSharper
         /// <summary>
         ///  DTSERVER. Date and time of the server response, datetime
         /// </summary>
-        [NodeInfo("DTSERVER")]
+        [NodeInfo("DTSERVER", Required = true)]
         public DateTime ServerDateTime
         {
             get;
@@ -118,7 +118,7 @@ namespace Restless.OfxSharper
         /// <summary>
         /// TSKEYEXPIRE. Date and time that USERKEY expires, datetime.
         /// </summary>
-        [NodeInfo("TSKEYEXPIRE")] 
+        [NodeInfo("TSKEYEXPIRE", Required = false)] 
         public DateTime? UserKeyExpire
         {
             get;
@@ -138,7 +138,7 @@ namespace Restless.OfxSharper
         {
             ValidateNull(rootNode, "SignOn.Node");
             AccessKey = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(AccessKey))));
-            AccountUpdate = GetNullableDateTimeValue(GetNestedNode(rootNode, GetNodeName(nameof(AccountUpdate))));
+            AccountUpdate = GetNullableDateTimeValue(rootNode, nameof(AccountUpdate));
             var node = GetNestedNode(rootNode, GetNodeName(nameof(InstitutionId)));
             if (node != null)
             {
@@ -146,12 +146,12 @@ namespace Restless.OfxSharper
             }
 
             Language = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(Language))));
-            ProfileDate = GetNullableDateTimeValue(GetNestedNode(rootNode, GetNodeName(nameof(ProfileDate))));
-            ServerDateTime = GetDateTimeValue(GetNestedNode(rootNode, GetNodeName(nameof(ServerDateTime))));
+            ProfileDate = GetNullableDateTimeValue(rootNode, nameof(ProfileDate));
+            ServerDateTime = GetDateTimeValue(rootNode, nameof(ServerDateTime));
             SessionCookie = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(SessionCookie))));
             Status = new StatusAggregate(GetNestedNode(rootNode, GetNodeName(nameof(Status))));
             UserKey = GetNodeValue(GetNestedNode(rootNode, GetNodeName(nameof(UserKey))));
-            UserKeyExpire = GetNullableDateTimeValue(GetNestedNode(rootNode, GetNodeName(nameof(UserKeyExpire))));
+            UserKeyExpire = GetNullableDateTimeValue(rootNode, nameof(UserKeyExpire));
         }
         #endregion
     }

@@ -1,12 +1,12 @@
 ﻿using Restless.OfxSharper.Core;
 using System.Xml;
 
-namespace Restless.OfxSharper.Accounts
+namespace Restless.OfxSharper.Account
 {
     /// <summary>
     /// Represents a credit card account.
     /// </summary>
-    public class CreditCardAccount : AccountBase
+    public class CreditCardAccount : BankAccountBase
     {
         #region Public properties
         /// <summary>

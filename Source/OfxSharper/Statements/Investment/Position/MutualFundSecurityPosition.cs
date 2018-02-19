@@ -30,7 +30,8 @@ namespace Restless.OfxSharper.Statement
         /// Initializes a new instance of the <see cref="MutualFundSecurityPosition"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        internal MutualFundSecurityPosition(XmlNode rootNode) : base(rootNode)
+        /// <param name="owner">The statement that owns this position.</param>
+        internal MutualFundSecurityPosition(XmlNode rootNode, CommonStatementBase owner) : base(rootNode, owner)
         {
         }
         #endregion

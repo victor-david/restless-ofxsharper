@@ -53,7 +53,8 @@ namespace Restless.OfxSharper.Statement
         /// Initializes a new instance of the <see cref="SecurityInfoCollection"/> class.
         /// </summary>
         /// <param name="secListNode">The xml node for the security list</param>
-        internal SecurityPositionCollection(XmlNode secListNode)
+        /// <param name="owner">The statement that owns this collection.</param>
+        internal SecurityPositionCollection(XmlNode secListNode, CommonStatementBase owner)
         {
             list = new List<SecurityPositionBase>();
 
@@ -64,19 +65,19 @@ namespace Restless.OfxSharper.Statement
                     switch (childNode.Name)
                     {
                         case MutualFundSecurityPosition.NodeName:
-                            Add(new MutualFundSecurityPosition(childNode));
+                            Add(new MutualFundSecurityPosition(childNode, owner));
                             break;
                         case StockSecurityPosition.NodeName:
-                            Add(new StockSecurityPosition(childNode));
+                            Add(new StockSecurityPosition(childNode, owner));
                             break;
                         case OptionSecurityPosition.NodeName:
-                            Add(new OptionSecurityPosition(childNode));
+                            Add(new OptionSecurityPosition(childNode, owner));
                             break;
                         case DebtSecurityPosition.NodeName:
-                            Add(new DebtSecurityPosition(childNode));
+                            Add(new DebtSecurityPosition(childNode, owner));
                             break;
                         case OtherSecurityPosition.NodeName:
-                            Add(new OtherSecurityPosition(childNode));
+                            Add(new OtherSecurityPosition(childNode, owner));
                             break;
                     }
                 }

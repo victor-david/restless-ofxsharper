@@ -1,4 +1,5 @@
-﻿using Restless.OfxSharper.Core;
+﻿using Restless.OfxSharper.Account;
+using Restless.OfxSharper.Core;
 using System.Xml;
 
 namespace Restless.OfxSharper

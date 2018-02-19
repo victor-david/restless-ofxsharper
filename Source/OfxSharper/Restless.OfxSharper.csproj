@@ -80,12 +80,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountInfo\AccountInfoPrimitive.cs" />
+    <Compile Include="AccountInfo\AccountInfoBase.cs" />
+    <Compile Include="AccountInfo\BillPayAccountInfo.cs" />
+    <Compile Include="AccountInfo\CreditCardAccountInfo.cs" />
+    <Compile Include="Account\AccountBase.cs" />
+    <Compile Include="Account\InvestmentAccount.cs" />
+    <Compile Include="Core\CurrencyAggregate.cs" />
+    <Compile Include="Core\Enums\CurrencySource.cs" />
     <Compile Include="Core\OfxMessageSetBase2.cs" />
-    <Compile Include="OfxResponse\Information\AccountInfo.cs" />
-    <Compile Include="Accounts\CreditCardAccount.cs" />
-    <Compile Include="Accounts\BankAccount.cs" />
-    <Compile Include="OfxResponse\Information\AccountInfoCollection.cs" />
-    <Compile Include="Accounts\InvestmentAccount.cs" />
+    <Compile Include="AccountInfo\BankAccountInfo.cs" />
+    <Compile Include="Account\CreditCardAccount.cs" />
+    <Compile Include="Account\BankAccount.cs" />
+    <Compile Include="AccountInfo\AccountInfoCollection.cs" />
+    <Compile Include="AccountInfo\InvestmentAccountInfo.cs" />
     <Compile Include="Builder\InvestmentDownloadOptions.cs" />
     <Compile Include="Builder\OfxEmailMessageSetBuilder.cs" />
     <Compile Include="Builder\OfxBillPayMessageSetBuilder.cs" />
@@ -108,7 +116,7 @@
     <Compile Include="Core\Enums\InvestmentProductType.cs" />
     <Compile Include="Core\Enums\StatementType.cs" />
     <Compile Include="Core\Enums\AccountType.cs" />
-    <Compile Include="Accounts\AccountBase.cs" />
+    <Compile Include="Account\BankAccountBase.cs" />
     <Compile Include="Core\Balance.cs" />
     <Compile Include="Core\Enums\BankAccountType.cs" />
     <Compile Include="Core\TransactionMessageBase.cs" />
@@ -125,8 +133,8 @@
     <Compile Include="OfxResponse\Profile\AccountProfile.cs" />
     <Compile Include="OfxResponse\Profile\InvestmentProfile.cs" />
     <Compile Include="Core\InstitutionIdentification.cs" />
-    <Compile Include="OfxResponse\Information\Payee.cs" />
-    <Compile Include="OfxResponse\Information\PayeeCollection.cs" />
+    <Compile Include="AccountInfo\Payee.cs" />
+    <Compile Include="AccountInfo\PayeeCollection.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

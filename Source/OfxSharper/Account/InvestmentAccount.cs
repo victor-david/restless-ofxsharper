@@ -1,10 +1,10 @@
 ﻿using Restless.OfxSharper.Core;
 using System.Xml;
 
-namespace Restless.OfxSharper.Accounts
+namespace Restless.OfxSharper.Account
 {
     /// <summary>
-    /// Represents an investment account
+    /// Represents an an investment account FROM/TO aggregate. INVACCTFROM or INVACCTTO
     /// </summary>
     public class InvestmentAccount : AccountBase
     {
@@ -15,40 +15,10 @@ namespace Restless.OfxSharper.Accounts
         public override AccountType AccountType => AccountType.Investment;
 
         /// <summary>
-        /// INVACCTTYPE. Gets the type of investment account.
-        /// </summary>
-        [NodeInfo("INVACCTTYPE")]
-        public InvestmentAccountType InvestmentAccountType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// BROKERID. Gets the broker id.
         /// </summary>
         [NodeInfo("BROKERID")]
         public string BrokerId
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// USPRODUCTTYPE. Gets the product type
-        /// </summary>
-        [NodeInfo("USPRODUCTTYPE")]
-        public InvestmentProductType ProductType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// CHECKING. Gets a boolean value that indicates if this account supports check writing
-        /// </summary>
-        [NodeInfo("CHECKING")]
-        public bool IsChecking
         {
             get;
             private set;
@@ -67,9 +37,6 @@ namespace Restless.OfxSharper.Accounts
             if (rootNode != null)
             {
                 BrokerId = GetNodeValue(rootNode, nameof(BrokerId));
-                ProductType = GetNodeValue(rootNode, nameof(ProductType)).ToInvestmentProductType();
-                InvestmentAccountType = GetNodeValue(rootNode, nameof(InvestmentAccountType)).ToInvestmentAccountType();
-                IsChecking = GetBooleanValue(rootNode, nameof(IsChecking));
             }
         }
         #endregion

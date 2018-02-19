@@ -16,6 +16,8 @@ namespace Restless.OfxSharper.Core
         /// <returns>A DateTime object</returns>
         public static DateTime ToDateObject(this string date)
         {
+            // 0123 45 67 89 01 234567
+            // 2018 02 13 06 00 00.000[-6:CST]
             try
             {
                 if (date.Length < 8)
@@ -23,11 +25,22 @@ namespace Restless.OfxSharper.Core
                     return new DateTime();
                 }
 
-                var yyyy = Int32.Parse(date.Substring(0, 4));
-                var mm = Int32.Parse(date.Substring(4, 2));
-                var dd = Int32.Parse(date.Substring(6, 2));
+                int hh = 0;
+                int mmm = 0;
 
-                return new DateTime(yyyy, mm, dd);
+                int yyyy = Int32.Parse(date.Substring(0, 4));
+                int mm = Int32.Parse(date.Substring(4, 2));
+                int dd = Int32.Parse(date.Substring(6, 2));
+                if (date.Length >= 10)
+                {
+                    hh = Int32.Parse(date.Substring(8, 2));
+                    if (date.Length >= 12)
+                    {
+                        mmm = Int32.Parse(date.Substring(10, 2));
+                    }
+                }
+
+                return new DateTime(yyyy, mm, dd, hh, mmm, 0);
             }
             catch
             {

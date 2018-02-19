@@ -21,7 +21,7 @@ namespace Restless.OfxSharper.Core
         /// <summary>
         /// Gets the amount
         /// </summary>
-        [NodeInfo("BALAMT")]
+        [NodeInfo("BALAMT", Required = true)]
         public Decimal Amount
         {
             get;
@@ -31,7 +31,7 @@ namespace Restless.OfxSharper.Core
         /// <summary>
         /// Gets the ledger balance date.
         /// </summary>
-        [NodeInfo("DTASOF")]
+        [NodeInfo("DTASOF", Required = true)]
         public DateTime Date
         {
             get;
@@ -52,7 +52,7 @@ namespace Restless.OfxSharper.Core
             if (rootNode != null)
             {
                 Amount = GetDecimalValue(GetNestedNode(rootNode, GetNodeName(nameof(Amount))));
-                Date = GetDateTimeValue(GetNestedNode(rootNode, GetNodeName(nameof(Date))));
+                Date = GetDateTimeValue(rootNode, nameof(Date));
                 IsSupported = true;
             }
         }

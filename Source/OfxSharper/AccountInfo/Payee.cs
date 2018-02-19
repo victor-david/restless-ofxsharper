@@ -1,7 +1,7 @@
 ﻿using Restless.OfxSharper.Core;
 using System.Xml;
 
-namespace Restless.OfxSharper
+namespace Restless.OfxSharper.Account
 {
     /// <summary>
     /// Specifies a complete billing address for a payee.
