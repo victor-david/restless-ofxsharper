@@ -86,6 +86,7 @@
     <Compile Include="AccountInfo\CreditCardAccountInfo.cs" />
     <Compile Include="Account\AccountBase.cs" />
     <Compile Include="Account\InvestmentAccount.cs" />
+    <Compile Include="Core\TransferInfo.cs" />
     <Compile Include="Core\CurrencyAggregate.cs" />
     <Compile Include="Core\Enums\CurrencySource.cs" />
     <Compile Include="Core\OfxMessageSetBase2.cs" />
@@ -121,6 +122,11 @@
     <Compile Include="Core\Enums\BankAccountType.cs" />
     <Compile Include="Core\TransactionMessageBase.cs" />
     <Compile Include="OfxResponse\MessageSets\InvestmentMessageSet.cs" />
+    <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankTransactionCollection.cs" />
+    <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankSyncCollection.cs" />
+    <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankSync.cs" />
+    <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankTransaction.cs" />
+    <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankTransactionResponse.cs" />
     <Compile Include="Statements\Investment\Position\DebtSecurityPosition.cs" />
     <Compile Include="Statements\Investment\Position\MutualFundSecurityPosition.cs" />
     <Compile Include="Statements\Investment\Position\OptionSecurityPosition.cs" />

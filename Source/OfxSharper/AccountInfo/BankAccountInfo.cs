@@ -19,18 +19,6 @@ namespace Restless.OfxSharper.Account
             get;
         }
 
-        ///// <summary>
-        ///// Gets the <see cref="Account"/> property strongly typed.
-        ///// </summary>
-        //public BankAccount StrongAccount
-        //{
-        //    get
-        //    {
-        //        ValidateNull(Account as BankAccount, nameof(StrongAccount));
-        //        return Account as BankAccount;
-        //    }
-        //}
-
         /// <summary>
         /// Gets a boolean value that indicates if transaction details are supported.
         /// </summary>
@@ -77,6 +65,7 @@ namespace Restless.OfxSharper.Account
         /// <summary>
         /// Initializes a new instance of the <see cref="BankAccountInfo"/> class.
         /// </summary>
+        /// <param name="rootNode">The root node from which to find data for this class.</param>
         internal BankAccountInfo(XmlNode rootNode) : base(rootNode)
         {
             // rootNode cannot be null. Base class constructor throws if so.
