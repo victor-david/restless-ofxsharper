@@ -122,6 +122,7 @@
     <Compile Include="Core\Enums\BankAccountType.cs" />
     <Compile Include="Core\TransactionMessageBase.cs" />
     <Compile Include="OfxResponse\MessageSets\InvestmentMessageSet.cs" />
+    <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankTransactionResponseCollection.cs" />
     <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankTransactionCollection.cs" />
     <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankSyncCollection.cs" />
     <Compile Include="Statements\Bank\IntraBankTransfer\IntraBankSync.cs" />

@@ -8,6 +8,10 @@ namespace Restless.OfxSharper.Statement
     /// </summary>
     public class IntraBankTransactionResponse : TransactionMessageBase
     {
+        #region Internal fields
+        internal const string NodeName = "INTRATRNRS";
+        #endregion
+
         #region Public properties
         /// <summary>
         /// Gets the collection of intra bank transaction objects.

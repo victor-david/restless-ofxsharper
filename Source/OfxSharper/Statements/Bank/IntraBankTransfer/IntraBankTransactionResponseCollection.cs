@@ -9,10 +9,10 @@ namespace Restless.OfxSharper.Statement
     /// <summary>
     /// Represents a collection of <see cref="IntraBankTransaction"/> objects.
     /// </summary>
-    public class IntraBankTransactionCollection : OfxObjectBase, ICollection<IntraBankTransaction>
+    public class IntraBankTransactionResponseCollection : OfxObjectBase, ICollection<IntraBankTransactionResponse>
     {
         #region Private
-        private List<IntraBankTransaction> list;
+        private List<IntraBankTransactionResponse> list;
         #endregion
 
         /************************************************************************/
@@ -29,11 +29,11 @@ namespace Restless.OfxSharper.Statement
         public bool IsReadOnly => false;
 
         /// <summary>
-        /// Gets the <see cref="IntraBankTransaction"/> object indexed by position.
+        /// Gets the <see cref="IntraBankTransactionResponse"/> object indexed by position.
         /// </summary>
         /// <param name="index">The index position</param>
         /// <returns>The statement</returns>
-        public IntraBankTransaction this[int index] 
+        public IntraBankTransactionResponse this[int index] 
         {
             get
             {
@@ -50,17 +50,17 @@ namespace Restless.OfxSharper.Statement
 
         #region Constructor (internal)
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntraBankTransactionCollection"/> class.
+        /// Initializes a new instance of the <see cref="IntraBankTransactionResponseCollection"/> class.
         /// </summary>
         /// <param name="rootNode">The root node from which to find data for this class.</param>
-        internal IntraBankTransactionCollection(XmlNode rootNode)
+        internal IntraBankTransactionResponseCollection(XmlNode rootNode)
         {
-            list = new List<IntraBankTransaction>();
+            list = new List<IntraBankTransactionResponse>();
             if (rootNode != null)
             {
-                foreach (XmlNode childNode in rootNode.ChildNodes.OfType<XmlNode>().Where((n)=>n.Name == IntraBankTransaction.NodeName))
+                foreach (XmlNode childNode in rootNode.ChildNodes.OfType<XmlNode>().Where((n)=>n.Name == IntraBankTransactionResponse.NodeName))
                 {
-                    Add(new IntraBankTransaction(childNode));
+                    Add(new IntraBankTransactionResponse(childNode));
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace Restless.OfxSharper.Statement
         /// Adds an item to the collection.
         /// </summary>
         /// <param name="item">The item to add</param>
-        public void Add(IntraBankTransaction item)
+        public void Add(IntraBankTransactionResponse item)
         {
             ValidateNull(item, "Add.Item");
             list.Add(item);
@@ -97,7 +97,7 @@ namespace Restless.OfxSharper.Statement
         /// </summary>
         /// <param name="item">The item to check.</param>
         /// <returns>true if the item exists in the collection; otherwise, false.</returns>
-        public bool Contains(IntraBankTransaction item)
+        public bool Contains(IntraBankTransactionResponse item)
         {
             foreach (var listItem in list)
             {
@@ -114,7 +114,7 @@ namespace Restless.OfxSharper.Statement
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">The array index to begin copying.</param>
-        public void CopyTo(IntraBankTransaction[] array, int arrayIndex)
+        public void CopyTo(IntraBankTransactionResponse[] array, int arrayIndex)
         {
             ValidateNull(array, "CopyTo.Array");
             ValidateOfxOperation(arrayIndex < 0, "Index out of bounds");
@@ -129,7 +129,7 @@ namespace Restless.OfxSharper.Statement
         /// Gets the enumerator for the collection.
         /// </summary>
         /// <returns>The enumerator</returns>
-        public IEnumerator<IntraBankTransaction> GetEnumerator()
+        public IEnumerator<IntraBankTransactionResponse> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -139,7 +139,7 @@ namespace Restless.OfxSharper.Statement
         /// </summary>
         /// <param name="item">The item</param>
         /// <returns>true if the item was removed, false if the item doesn't exist.</returns>
-        public bool Remove(IntraBankTransaction item)
+        public bool Remove(IntraBankTransactionResponse item)
         {
             if (Contains(item))
             {

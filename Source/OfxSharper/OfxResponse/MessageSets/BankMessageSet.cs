@@ -39,7 +39,15 @@ namespace Restless.OfxSharper
         }
 
         /// <summary>
-        /// Gets the collection of <see cref="IntraBankSync"/> objects.
+        /// Gets the collection of intra bank transfer responses.
+        /// </summary>
+        public IntraBankTransactionResponseCollection IntraBankTransfers
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the collection of intra bank synchronization responses.
         /// </summary>
         public IntraBankSyncCollection IntraBankSyncs
         {
@@ -59,8 +67,9 @@ namespace Restless.OfxSharper
         internal BankMessageSet(XmlDocument xmlDoc, int messageSetVersion) : base(messageSetVersion)
         {
             Statements = new BankStatementCollection(GetNestedNode(xmlDoc.FirstChild, MessageSetName1), GetNestedNode(xmlDoc.FirstChild, MessageSetName2));
+            IntraBankTransfers = new IntraBankTransactionResponseCollection(GetNestedNode(xmlDoc.FirstChild, MessageSetName1));
             IntraBankSyncs = new IntraBankSyncCollection(GetNestedNode(xmlDoc.FirstChild, MessageSetName1));
-         }
+        }
         #endregion
     }
 }
