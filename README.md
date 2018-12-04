@@ -1,4 +1,6 @@
 # Restless OfxSharper
+[![Nuget](https://img.shields.io/nuget/v/Restless.OfxSharper.svg?style=flat-square)](https://www.nuget.org/packages/Restless.OfxSharper/)
+
 Provides extended Ofx services: parsing of multiple statements, closing statements, financial institution profile info; 
 and Ofx request building.
 
