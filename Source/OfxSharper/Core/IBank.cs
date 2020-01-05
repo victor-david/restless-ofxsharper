@@ -6,6 +6,11 @@
     public interface IBank
     {
         /// <summary>
+        /// Gets or sets the client unique id.
+        /// </summary>
+        string ClientUid { get; set; }
+
+        /// <summary>
         /// Gets or sets the user id.
         /// </summary>
         string UserId { get; set; }

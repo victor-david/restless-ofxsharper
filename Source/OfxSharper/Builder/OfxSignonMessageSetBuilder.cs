@@ -53,17 +53,21 @@ namespace Restless.OfxSharper.Builder
             ValidateNull(bank, nameof(bank));
             Builder.AppendLine("<SIGNONMSGSRQV1>");
             Builder.AppendLine("<SONRQ>");
-            Builder.AppendLine(String.Format("<DTCLIENT>{0}", DateTime.Now.ToString("yyyyMMddhhmmss")));
-            Builder.AppendLine(String.Format("<USERID>{0}", bank.UserId));
-            Builder.AppendLine(String.Format("<USERPASS>{0}", bank.Password));
+            Builder.AppendLine($"<DTCLIENT>{DateTime.Now.ToString("yyyyMMddhhmmss")}");
+            Builder.AppendLine($"<USERID>{bank.UserId}");
+            Builder.AppendLine($"<USERPASS>{bank.Password}");
             Builder.AppendLine("<GENUSERKEY>N");
-            Builder.AppendLine(String.Format("<LANGUAGE>{0}", bank.OfxLanguage));
+            Builder.AppendLine($"<LANGUAGE>{bank.OfxLanguage}");
             Builder.AppendLine("<FI>");
-            Builder.AppendLine(String.Format("<ORG>{0}", bank.Org));
-            Builder.AppendLine(String.Format("<FID>{0}", bank.OfxId));
+            Builder.AppendLine($"<ORG>{bank.Org}");
+            Builder.AppendLine($"<FID>{bank.OfxId}");
             Builder.AppendLine("</FI>");
-            Builder.AppendLine(String.Format("<APPID>{0}", bank.AppId));
-            Builder.AppendLine(String.Format("<APPVER>{0}", bank.AppVersion));
+            Builder.AppendLine($"<APPID>{bank.AppId}");
+            Builder.AppendLine($"<APPVER>{bank.AppVersion}");
+            if (!string.IsNullOrEmpty(bank.ClientUid))
+            {
+                Builder.AppendLine($"<CLIENTUID>{bank.ClientUid}");
+            }
             Builder.AppendLine("</SONRQ>");
             Builder.AppendLine("</SIGNONMSGSRQV1>");
         }

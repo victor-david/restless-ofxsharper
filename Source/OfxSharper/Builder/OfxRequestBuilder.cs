@@ -142,22 +142,22 @@ namespace Restless.OfxSharper.Builder
         /// <param name="buildCallback">Callback method. Use this method to call other build methods</param>
         /// <param name="oldFileId">The old file id, or null to use NONE.</param>
         /// <param name="newFileId">The new file id, or null to use NONE.</param>
-        public void BuildOfxRequest(Action buildCallback, string oldFileId = null, string newFileId = null)
+        public void BuildOfxRequest(Action buildCallback, string oldFileId = null, string newFileId = null, long ofxVersion = 102)
         {
             ValidateNull(buildCallback, nameof(buildCallback));
             builder.Clear();
             // Create the header
-            if (String.IsNullOrEmpty(oldFileId)) oldFileId = "NONE";
-            if (String.IsNullOrEmpty(newFileId)) newFileId = "NONE";
+            if (string.IsNullOrEmpty(oldFileId)) oldFileId = "NONE";
+            if (string.IsNullOrEmpty(newFileId)) newFileId = "NONE";
             builder.AppendLine("OFXHEADER:100");
             builder.AppendLine("DATA:OFXSGML");
-            builder.AppendLine("VERSION:102");
+            builder.AppendLine($"VERSION:{ofxVersion}");
             builder.AppendLine("SECURITY:NONE");
             builder.AppendLine("ENCODING:USASCII");
             builder.AppendLine("CHARSET:1252");
             builder.AppendLine("COMPRESSION:NONE");
-            builder.AppendLine(String.Format("OLDFILEUID:{0}", oldFileId));
-            builder.AppendLine(String.Format("NEWFILEUID:{0}", newFileId));
+            builder.AppendLine($"OLDFILEUID:{oldFileId}");
+            builder.AppendLine($"NEWFILEUID:{newFileId}");
             builder.AppendLine();
             builder.AppendLine("<OFX>");
             buildCallback();
