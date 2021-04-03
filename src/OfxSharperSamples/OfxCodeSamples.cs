@@ -1,5 +1,4 @@
-﻿using Restless.OfxSharper;
-using Restless.OfxSharper.Builder;
+﻿using Restless.OfxSharper.Builder;
 using Restless.OfxSharper.Core;
 using Restless.OfxSharper.Profile;
 using Restless.OfxSharper.Statement;
@@ -7,6 +6,9 @@ using System;
 
 namespace Restless.OfxSharper.Samples
 {
+    /// <summary>
+    /// Provides example code on using the Ofx library. Included here to ensure they compile correctly.
+    /// </summary>
     public class OfxCodeSamples
     {
         public void OfxProfileExample()

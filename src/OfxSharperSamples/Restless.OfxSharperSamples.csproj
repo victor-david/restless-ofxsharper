@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <PackageId>Restless.OfxSharper.Samples</PackageId>
+    <AssemblyName>Restless.OfxSharper.Samples</AssemblyName>
+    <RootNamespace>Restless.OfxSharper</RootNamespace>
+    <Description>Provides samples in using the OfxSharper library</Description>
+    <PackageProjectUrl>https://github.com/victor-david/restless-ofxsharper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/victor-david/restless-ofxsharper</RepositoryUrl>
+    <Authors>Restless Animal Development</Authors>
+    <Company>Restless Animal Development</Company>
+    <Version>1.0.0</Version>
+    <Product>Restless OfxSharper Samples</Product>
+    <Title>Restless OfxSharper Samples</Title>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <Copyright>Copyright © 2017-2021</Copyright>
+    <PackageTags>ofx ofx-parsing financial</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OfxSharper\Restless.OfxSharper.csproj" />
+  </ItemGroup>
+  
+</Project>
